@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Match Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+          <img src="assets/logo.png" alt="Club Logo" class="club-logo" />
+          <h1>Match Dashboard</h1>
+        </div>
+      
+        <div class="controls">
+          <select id="matchSelect" class="styled-select">
+            <option value="Match 1">Match 1</option>
+            <option value="Match 2">Match 2</option>
+          </select>
+      
+          <div class="tabs">
+            <button class="tab active" data-view="teamView">Team View</button>
+            <button class="tab" data-view="playerView">Player View</button>
+          </div>
+        </div>
+      </header>
+      
+  <main>
+    <!-- View 1: Team Dashboard -->
+    <section id="teamView" class="view">
+        <h2 id="matchTitle">Team Stats Overview</h2>
+        
+        <!-- Flex Container for Stats and Charts -->
+        <div class="summary-section">
+        
+        <!-- Left: stats -->
+        <div class="stats-column">
+            <h3>Key Metrics</h3>
+            <ul class="stat-list">
+              <li><span>Goals</span>
+                <span class="stat-value goal">
+                    <small>(Avg: 2.5)</small> <span class="arrow">▲</span>
+                </span>
+              </li>
+              <li><span>Shots on Goal</span>
+                  <span class="stat-value shots">
+                      <small>(Avg: 8.2)</small> <span class="arrow">▲</span>
+                  </span>
+              </li>
+              <li><span>Fouls</span>
+                  <span class="stat-value fouls">
+                      <small>(Avg: 15.1)</small> <span class="arrow">▼</span>
+                  </span>
+              </li>
+              <li><span>Pass Accuracy</span>
+                  <span class="stat-value pass">
+                      <small>(Avg: 79%)</small> <span class="arrow">▲</span>
+                  </span>
+              </li>
+            </ul>
+
+            <!-- Match summary section -->
+            <h3>Post-Match Summary</h3>
+            <div class="fifa-summary">
+              <div class="summary-card">
+              </div>
+              <div class="summary-card">
+                <h4>Shots</h4>
+                <div class="bar-container">
+                  <div class="bar home" style="width: 63%">12</div>
+                  <div class="bar away" style="width: 37%">7</div>
+                </div>
+              </div>
+              <div class="summary-card">
+                <h4>Pass Accuracy</h4>
+                <div class="bar-container">
+                  <div class="bar home pass" style="width: 85%">85%</div>
+                  <div class="bar away pass" style="width: 68%">68%</div>
+                </div>
+              </div>
+              <div class="summary-card">
+                <h4>Yellow Cards</h4>
+                <div class="bar-container">
+                  <div class="bar home yellow" style="width: 50%">1</div>
+                  <div class="bar away yellow" style="width: 50%">1</div>
+                </div>
+              </div>
+            </div>
+         </div>
+    
+        <!-- Right: Charts -->
+        <div class="chart-section">
+            <figure class="chart-figure">
+              <figcaption>Possession</figcaption>
+              <canvas id="possessionChart"></canvas>
+            </figure>
+            <h3>Last Five Games</h3>
+            <table class="match-history">
+              <thead>
+                <tr>
+                  <th>Result</th>
+                  <th>Match</th>
+                  <th>Date</th>
+                  <th>Competition</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Data will be dynamically populated here -->
+              </tbody>
+            </table>
+        </div>
+        </div>
+    </section>
+  
+    <!-- View 1 END ########### -->
+
+    <!-- View 2: Player Dashboard -->
+    <section id="playerView" class="view hidden">
+      <h2>Player Insights</h2>
+
+      <div class="container">
+        <div class="field-container">
+          <div id="field" class="field"></div>
+        </div>
+        
+        <div class="stats-container">
+          <div id="playerStatsPanel"></div>
+        </div>
+      </div>
+
+      <div id="videoReviewSection">
+        <h3>Video Review</h3>
+        <table id="videoTable">
+          <thead>
+            <tr><th>Event</th><th>Time</th><th>Outcome</th><th>Clip</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+    <!-- View 2 END ############# -->
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="anotherScript.js"></script>
+</body>
+</html>

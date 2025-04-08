@@ -1,0 +1,458 @@
+/* Global styles */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1c1f26; /* soft dark - 1c1f26 */
+    color: #e0e0e0; /* off-white text */
+  }
+  
+  /* Header */
+  /* header {
+    background-color: #2b2f3a;
+    color: #ffbb00;
+    padding: 1rem;
+    text-align: center;
+  } */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #1a1a1a; /* 1a1a1a or 2b2f3a */
+    color: #ebe7dd; /* ffbb00 */
+    border-bottom: 1px solid #333;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .club-logo {
+    height: 120px;
+    width: auto;
+  }
+  
+  /* Controls and Tabs */
+  .controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+  
+  /* Dropdown and Button Shared Sizing */
+  .styled-select,
+  .tabs .tab {
+    background-color: #2a2e38;
+    color: #f0f0f0;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-size: 1rem;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .styled-select {
+    appearance: none;
+  }
+  
+  .styled-select:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  /* Tabs styling */
+  .tabs {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .tabs .tab:hover {
+    background: #4a4f5c;
+  }
+  
+  .tab.active {
+    background: #00aaff;
+    color: #fff;
+  }
+  /* end header controls */
+
+
+  /* Main View */
+  .view {
+    padding: 2rem;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  /* Stat Cards */
+
+/* Flex container for stats */
+.summary-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 1.5rem;
+  }
+  
+  /* Left column - Stats (Quick + Modeled Stats) */
+  .stats-column {
+    flex: 1 1 45%; /* Takes up 45% of the space */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  /* List style for Quick Stats */
+  .stat-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: #1f222a;
+    border-radius: 8px;
+    color: #f5f5f5;
+  }
+  
+  .stat-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #333;
+  }
+  
+  .stat-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .stat-list small {
+    color: #aaa;
+    margin-left: 0.5rem;
+  }
+
+  .stat-value {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  /* .arrow {
+    font-size: 0.9rem;
+  } */
+
+  /* Arrow base styling */
+  .arrow {
+    font-size: 15px;
+    margin-left: 5px;
+  }
+
+  /* Trend Up - Green */
+  .up-trend {
+    color: green;
+  }
+
+  /* Trend Down - Red */
+  .down-trend {
+    color: red;
+  }
+
+  
+  /* Modeled Stats (stat cards for individual modeled stats)
+  .modeled-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  } */
+  
+  .stat-card.modeled {
+    background: #2f333d;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 170, 255, 0.15);
+    color: #f5f5f5;
+    flex: 1 1 45%; /* Ensures cards take up half of the container each */
+  }
+
+  /* match summary */
+  .fifa-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  
+  .summary-card h4 {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .bar-container {
+    display: flex;
+    height: 24px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #ddd;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .bar.away {
+    background-color: #0767cd;
+  }
+  
+  .bar.home {
+    background-color: #d22124;
+  }
+  
+  
+  /* Right column - Charts */
+  .chart-section {
+    flex: 1 1 45%; /* Takes up 45% of the space */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* chart size */
+  #possessionChart {
+    width: 200px !important;
+    height: 200px !important;
+    max-width: 100%;
+    margin: auto;
+  }
+
+  .chart-figure {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.chart-figure figcaption {
+  margin-bottom: 0.9rem;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* last 5 games table */
+.match-history {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  background-color: #1f222a;
+  color: #f0f0f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.match-history th,
+.match-history td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+.match-history thead {
+  background-color: #2d2d44;
+}
+
+.match-history tbody tr:hover {
+  background-color: #2b2b3a;
+}
+
+.match-history .win {
+  color: #00ff99;
+  font-weight: bold;
+}
+
+.match-history .loss {
+  color: #ff4c4c;
+  font-weight: bold;
+}
+
+.match-history .draw {
+  color: #ffc107;
+  font-weight: bold;
+}
+
+
+
+  /* start VIEW 2 - Field, player stats, video */
+  .field {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 2 / 1; /* Keeps it proportional */
+    margin: 20px auto;
+    background: #36a23a; /* pitch green */
+    border: 4px solid white;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  
+  /* Midfield line */
+  .field::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background: white;
+    transform: translateX(-50%);
+  }
+  
+  /* Center circle */
+  .field::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    border: 2px solid white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* Player dots */
+  .player {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: 2px solid #333;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+  
+  .player.team-a {
+    background-color: #007bff;
+  }
+  .player.team-b {
+    background-color: #dc3545;
+  }
+  
+  
+  /* Player Panel -- this works below field */
+  /* #playerStatsPanel {
+    background: #2a2e38;
+    padding: 1rem;
+    border: 1px solid #444;
+    margin-bottom: 1rem;
+    color: #f0f0f0;
+  } */
+  
+  /* Video Review Table */
+  #videoReviewSection {
+    margin-top: 2rem;
+  }
+  
+  #videoTable {
+    width: 100%;
+    border-collapse: collapse;
+    color: #e0e0e0;
+  }
+  
+  #videoTable th, #videoTable td {
+    border: 1px solid #444;
+    padding: 0.5rem;
+    text-align: center;
+  }
+  
+  #videoTable th {
+    background-color: #3b3f4a;
+  }
+  
+  #videoTable tr:nth-child(even) {
+    background-color: #2a2e36;
+  }
+  /* END Video Review Table */
+  
+/* Container for field and stats panel */
+#playerStatsPanel {
+    background: #2a2e38;
+    padding: 1.5rem;
+    border-radius: 8px;
+    /* border: 1px solid #444; */
+    color: #f0f0f0;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem; /* Gap between the field and the stats panel */
+    padding: 2rem;
+  }
+  
+  /* Field container */
+  .field-container {
+    flex: 1;
+    position: relative; /* Position for absolute elements like players */
+    height: 450px; /* Adjust field height */
+    background-color: #2a2e38; /* Background color of the field */
+    border: 1px solid #444;
+    border-radius: 8px;
+  }
+  
+  /* Stats panel container */
+  .stats-container {
+    display: none;  /* Hide by default */
+    width: 300px; /* Adjust width as needed */
+    max-width: 350px;
+    background: #2a2e38;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #444;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Player Stats Panel */
+  #playerStatsPanel {
+    color: #f0f0f0;
+  }
+  
+  #playerStatsPanel h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Stat Cards */
+  #playerStatsPanel .stat-card {
+    background: #3a3f4b;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  #playerStatsPanel .stat-card h4 {
+    font-size: 1.2rem;
+  }
+  
+  #playerStatsPanel .stat-card p {
+    font-size: 1rem;
+  }
+  
