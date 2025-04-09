@@ -1,4 +1,5 @@
 import { renderPlayers } from './field.js';
+import { loadVideoData } from './videoRev.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     renderPlayers('.field');
@@ -11,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
         stats: {
           goals: { value: 5, avg: 2.5, trend: 'up' },
           shotsOnGoal: { value: 12, avg: 8.2, trend: 'up' },
-          fouls: { value: 12, avg: 15.1, trend: 'down' },
-          passAccuracy: { value: 85, avg: 79, trend: 'up' },
+          fouls: { value: 12, avg: 13.1, trend: 'down' },
+          passAccuracy: { value: 85, avg: 82, trend: 'up' },
         },
         postMatchSummary: {
           possession: [58, 42],
@@ -35,31 +36,51 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
       },
       "Match 2": {
-        name: "2016-01-24 - Arsenal 0 - 1 Chelsea",
+        name: "2015-04-11 - Arsenal 1 - 0 Burnley",
         stats: {
-          goals: { value: 0, avg: 1.8, trend: 'down' },
-          shotsOnGoal: { value: 1, avg: 7.4, trend: 'down' },
-          fouls: { value: 14, avg: 12.4, trend: 'up' },
-          passAccuracy: { value: 73, avg: 80, trend: 'down' },
+          goals: { value: 1, avg: 1.8, trend: 'down' },
+          shotsOnGoal: { value: 5, avg: 7.4, trend: 'down' },
+          fouls: { value: 7, avg: 11.4, trend: 'down' },
+          passAccuracy: { value: 79, avg: 82, trend: 'down' },
         },
         postMatchSummary: {
-          possession: [46.6, 53.4],
-          shots: { home: 1, away: 6 },
-          passAccuracy: { home: 73, away: 77 },
-          yellowCards: { home: 1, away: 3 },
+          possession: [68.2, 31.8],
+          shots: { home: 5, away: 4 },
+          passAccuracy: { home: 79, away: 73 },
+          yellowCards: { home: 0, away: 2 },
         },
-        lastFiveGames:[{
-              result: "D",match: "Stoke City 0 - 0 Arsenal",
-              date: "Jan 17, 2016",competition: "English Premier League" },
-            { result: "D",match: "Liverpool 3 - 3 Arsenal",
-              date: "Jan 13, 2016",competition: "English Premier League"},
-            { result: "W", match: "Arsenal 3 - 1 Sunderland",
-              date: "Jan 9, 2016",competition: "English FA Cup"},
-            { result: "W", match: "Arsenal 1 - 0 Newcastle United",
-              date: "Jan 2, 2016",competition: "English Premier League"},
-            { result: "W", match: "Arsenal 2 - 0 AFC Bournemouth",
-              date: "Dec 28, 2015",competition: "English Premier League"}
-          ],
+        lastFiveGames:[
+          {
+            "result": "W",
+            "match": "Arsenal 4 - 1 Liverpool",
+            "date": "Apr 4, 2015",
+            "competition": "English Premier League"
+          },
+          {
+            "result": "W",
+            "match": "Newcastle United 1 - 2 Arsenal",
+            "date": "Mar 21, 2015",
+            "competition": "English Premier League"
+          },
+          {
+            "result": "W",
+            "match": "AS Monaco 0 - 2 Arsenal",
+            "date": "Mar 17, 2015",
+            "competition": "UEFA Champions League"
+          },
+          {
+            "result": "W",
+            "match": "Arsenal 3 - 0 West Ham United",
+            "date": "Mar 14, 2015",
+            "competition": "English Premier League"
+          },
+          {
+            "result": "W",
+            "match": "Manchester United 1 - 2 Arsenal",
+            "date": "Mar 9, 2015",
+            "competition": "English FA Cup"
+          }
+        ],        
       }
     };
   
@@ -71,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     matchSelect.addEventListener('change', function () {
       const selectedMatch = matchSelect.value;
       updateMatchData(matchData[selectedMatch]);
+      loadVideoData(selectedMatch);
     });
 
     // Function to calculate the width percentage

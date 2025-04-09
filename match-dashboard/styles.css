@@ -308,7 +308,7 @@ body {
   }
   
   /* Midfield line */
-  .field::before {
+  .field::after {
     content: '';
     position: absolute;
     top: 0;
@@ -320,7 +320,7 @@ body {
   }
   
   /* Center circle */
-  .field::after {
+  .field::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -330,8 +330,8 @@ body {
     border: 2px solid white;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-  }
-  
+  }  
+
   /* Player dots */
   .player {
     position: absolute;
@@ -350,50 +350,84 @@ body {
   }
   
   .player.team-a {
-    background-color: #007bff;
-  }
-  .player.team-b {
     background-color: #dc3545;
   }
+  .player.team-b {
+    background-color: #007bff;
+  }
+  .player.team-c {
+    background-color: #6f99a8;
+  }
   
-  
-  /* Player Panel -- this works below field */
-  /* #playerStatsPanel {
-    background: #2a2e38;
-    padding: 1rem;
-    border: 1px solid #444;
+  /* Video Grid */
+
+  #filterControls {
     margin-bottom: 1rem;
-    color: #f0f0f0;
-  } */
-  
-  /* Video Review Table */
-  #videoReviewSection {
-    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
   }
   
-  #videoTable {
-    width: 100%;
-    border-collapse: collapse;
-    color: #e0e0e0;
+  select, button {
+    padding: 6px 10px;
+    font-size: 1rem;
   }
+  /* Button specific styling */
+  button {
+    background-color: #ffc107; /* Green background */
+    color: black; /* White text color */
+    border: none; /* Remove border */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  select {
+    padding: 8px 14px; /* Slightly larger padding */
+    font-size: 1rem;
+    border-radius: 12px; /* More rounded corners */
+    background-color: #fff; /* White background */
+    color: #333; /* Dark text color */
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+    appearance: none; /* Remove default browser dropdown styling */
+}
   
-  #videoTable th, #videoTable td {
-    border: 1px solid #444;
-    padding: 0.5rem;
-    text-align: center;
+  .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+      padding: 20px;
   }
-  
-  #videoTable th {
-    background-color: #3b3f4a;
+
+  .video-container {
+      position: relative;
+      cursor: pointer;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
   }
-  
-  #videoTable tr:nth-child(even) {
-    background-color: #2a2e36;
+
+  .video-container video {
+      width: 100%;
+      height: auto;
   }
-  /* END Video Review Table */
+
+  .video-container:hover {
+      border-color: #4CAF50;
+  }
+
+  /* END */
   
 /* Container for field and stats panel */
-#playerStatsPanel {
+  /* Field container */
+  .field-container {
+    flex: 1;
+    position: relative; /* Position for absolute elements like players */
+    height: 450px; /* Adjust field height */
+    background-color: #2a2e38; /* Background color of the field */
+    border: 1px solid #444;
+    border-radius: 8px;
+  }
+  
+  /* Stats panel container */
+  #playerStatsPanel {
     background: #2a2e38;
     padding: 1.5rem;
     border-radius: 8px;
@@ -407,21 +441,10 @@ body {
     gap: 1.5rem; /* Gap between the field and the stats panel */
     padding: 2rem;
   }
-  
-  /* Field container */
-  .field-container {
-    flex: 1;
-    position: relative; /* Position for absolute elements like players */
-    height: 450px; /* Adjust field height */
-    background-color: #2a2e38; /* Background color of the field */
-    border: 1px solid #444;
-    border-radius: 8px;
-  }
-  
-  /* Stats panel container */
+
   .stats-container {
-    display: none;  /* Hide by default */
-    width: 300px; /* Adjust width as needed */
+    display: none;
+    width: 300px;
     max-width: 350px;
     background: #2a2e38;
     padding: 1.5rem;
@@ -429,9 +452,65 @@ body {
     border: 1px solid #444;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   }
+
+  /* Container for player stats */
+  .player-stats-container {
+    font-family: Arial, sans-serif;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #d4e4e3;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Player name and jersey number */
+  .player-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+
+  .jersey-number {
+    font-size: 0.9em;
+    color: #7f8c8d;
+  }
+
+  /* List of stats */
+  .stats-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  /* Each stat item */
+  .stat-item {
+    display: flex;
+    margin-bottom: 8px;
+    font-size: 1em;
+  }
+
+  /* Label for each stat */
+  .stat-label {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #34495e;
+  }
+
+  /* Value for each stat */
+  .stat-value {
+    color: #16a085;
+  }
+
+  /* Special highlight for 'Overall' and 'Goalkeeping Diving' */
+  .overall {
+    color: #e74c3c;
+    font-weight: bold;
+  }
+
   
   /* Player Stats Panel */
-  #playerStatsPanel {
+  /* #playerStatsPanel {
     color: #f0f0f0;
   }
   
@@ -439,9 +518,9 @@ body {
     font-size: 1.5rem;
     margin-bottom: 1rem;
   }
-  
+   */
   /* Stat Cards */
-  #playerStatsPanel .stat-card {
+  /* #playerStatsPanel .stat-card {
     background: #3a3f4b;
     padding: 1rem;
     border-radius: 8px;
@@ -454,5 +533,79 @@ body {
   
   #playerStatsPanel .stat-card p {
     font-size: 1rem;
+  } */
+
+  .stats-list {
+      list-style: none;
+      padding-left: 0;
+  }
+
+  .stats-list li {
+      margin: 0.5rem 0;
+      font-size: 14px;
+  }
+
+  /* Style the accordion container */
+  .accordion {
+    margin: 20px 0;
+    padding: 0;
+    border: none;
+  }
+
+  /* Style each accordion item */
+  /* .accordion-item {
+    border-bottom: 1px solid #ccc;
+  } */
+
+  /* Style the accordion button */
+  .accordion-button {
+    background-color: #f1f1f1;
+    border: 1px solid #444;
+    padding: 15px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 1rem;
+    /* font-weight: 300; */
+    transition: background-color 0.3s ease;
+  }
+
+  /* Change button background color on hover */
+  .accordion-button:hover {
+    background-color: #ddd;
+  }
+
+  /* Initially hide the accordion content */
+  .accordion-content {
+    padding: 0 15px;
+    display: none;
+    overflow: hidden; /* Hide content overflow */
+    max-height: 0;    /* Start with 0 height */
+    opacity: 0;       /* Start with 0 opacity */
+    transition: all 0.3s ease-out;
+  }
+
+  /* When the accordion is active (expanded), show content with smooth transition */
+  .accordion-item.active .accordion-content {
+    display: block;
+    max-height: 1000px; /* Allow it to expand */
+    opacity: 1;         /* Set opacity to 1 */
+    padding: 15px;      /* Add padding when expanded */
+  }
+
+  .accordion-content .clip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
   }
   
+  .accordion-content video {
+    width: 100%;
+    max-width: 640px; /* Adjust as needed */
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+
+

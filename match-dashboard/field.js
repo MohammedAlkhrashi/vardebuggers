@@ -1,109 +1,178 @@
 // player view page
+let playerStatsData = {};
+
+fetch('data/playerStats.json')
+    .then(response => response.json())
+    .then(data => {
+        playerStatsData = data;
+        console.log("Player data loaded successfully");
+    })
+    .catch(error => {
+        console.error("Error loading player stats data:", error);
+    });
+
+
 export function renderPlayers(containerSelector) {
     const field = document.querySelector(containerSelector);
+    const matchSelect = document.getElementById('matchSelect');
   
     // players
     const players = [
-      { number: 1, name: 'GK A', top: '50%', left: '10%', team: 'team-a' },
-      { number: 1, name: 'FW A', top: '30%', left: '30%', team: 'team-a' },
-      { number: 1, name: 'FW A2', top: '70%', left: '30%', team: 'team-a' },
-      { number: 1, name: 'GK B', top: '50%', left: '90%', team: 'team-b' },
-      { number: 1, name: 'FW B', top: '30%', left: '70%', team: 'team-b' },
-      { number: 1, name: 'FW B2', top: '70%', left: '70%', team: 'team-b' },
-    ];
+      // Team A (left to right)
+      { name: 'P. Cech', number: 33, top: '50%', left: '5%', team: 'team-a' },           // GK
+      { name: 'H. Bellerin', number: 24, top: '30%', left: '10%', team: 'team-a' },      // DEF
+      { name: 'P. Mertesacker (c)', number: 4, top: '40%', left: '15%', team: 'team-a' },
+      { name: 'L. Koscielny', number: 6, top: '60%', left: '15%', team: 'team-a' },
+      { name: 'N. Monreal', number: 18, top: '70%', left: '10%', team: 'team-a' },
+      { name: 'M. Flamini', number: 20, top: '40%', left: '30%', team: 'team-a' },       // MID (Double Pivot)
+      { name: 'S. Cazorla', number: 19, top: '60%', left: '30%', team: 'team-a' },
+      { name: 'A. Ramsey', number: 16, top: '30%', left: '45%', team: 'team-a' },        // MID (Attacking 3)
+      { name: 'M. Özil', number: 11, top: '50%', left: '63%', team: 'team-a' },
+      { name: 'A. Sánchez', number: 17, top: '70%', left: '45%', team: 'team-a' },
+      { name: 'T. Walcott', number: 14, top: '50%', left: '45%', team: 'team-a' },       // FW
+    
+      // Team B (right to left) match 1
+      { name: 'K. Schmeichel', number: 1, top: '50%', left: '95%', team: 'team-b' },     // GK
+      { name: 'R. de Laet', number: 2, top: '30%', left: '90%', team: 'team-b' },        // DEF
+      { name: 'R. Huth', number: 6, top: '40%', left: '85%', team: 'team-b' },
+      { name: 'W. Morgan', number: 5, top: '60%', left: '85%', team: 'team-b' },
+      { name: 'J. Schlupp', number: 15, top: '70%', left: '90%', team: 'team-b' },
+      { name: 'R. Mahrez', number: 26, top: '40%', left: '70%', team: 'team-b' },        // MID (Right)
+      { name: 'N. Kanté', number: 14, top: '60%', left: '70%', team: 'team-b' },         // MID (Pivot)
+      { name: 'D. Drinkwater', number: 4, top: '30%', left: '55%', team: 'team-b' },     // MID (Pivot)
+      { name: 'M. Albrighton', number: 11, top: '70%', left: '55%', team: 'team-b' },    // MID (Left)
+      { name: 'S. Okazaki', number: 20, top: '50%', left: '55%', team: 'team-b' },       // FW Support
+      { name: 'J. Vardy', number: 9, top: '50%', left: '37%', team: 'team-b' },           // FW
 
-    // event listener for clicks 
-    players.forEach(player => {
+      // Team C (right to left) match 2
+      { name: 'T. Heaton', number: 1, top: '50%', left: '95%', team: 'team-c' }, // GK
+
+      { name: 'K. Trippier', number: 2, top: '25%', left: '85%', team: 'team-c' },  // DEF
+      { name: 'M. Duff', number: 4, top: '40%', left: '85%', team: 'team-c' },
+      { name: 'J. Shackell', number: 5, top: '60%', left: '85%', team: 'team-c' },
+      { name: 'B. Mee', number: 6, top: '75%', left: '85%', team: 'team-c' },
+
+      { name: 'S. Arfield', number: 37, top: '30%', left: '70%', team: 'team-c' },   // MID
+      { name: 'D. Jones', number: 14, top: '50%', left: '70%', team: 'team-c' },
+      { name: 'G. Boyd', number: 21, top: '70%', left: '70%', team: 'team-c' },
+
+      { name: 'A. Barnes', number: 30, top: '30%', left: '55%', team: 'team-c' },
+      { name: 'D. Ings', number: 10, top: '70%', left: '55%', team: 'team-c' },      // FW
+      { name: 'S. Vokes', number: 9, top: '50%', left: '55%', team: 'team-c' }
+    ];
+  
+  // Renders players for selected match
+  function renderMatchPlayers(selectedMatch) {
+    // Clear current field
+    field.innerHTML = '';
+
+    // Determine teams to show
+    let teamsToShow = ['team-a'];
+    if (selectedMatch === 'Match 1') {
+      teamsToShow.push('team-b');
+    } else if (selectedMatch === 'Match 2') {
+      teamsToShow.push('team-c');
+    }
+
+    // Filter and render players
+    players
+      .filter(player => teamsToShow.includes(player.team))
+      .forEach(player => {
         const div = document.createElement('div');
         div.classList.add('player', player.team);
         div.style.top = player.top;
         div.style.left = player.left;
-        div.textContent = player.name;
-    
-        // event listener
+        div.textContent = player.number;
+
         div.addEventListener('click', () => {
-          // Reset all players to their team color
           const allPlayers = field.querySelectorAll('.player');
           allPlayers.forEach(p => {
             if (p.classList.contains('team-a')) {
-              p.style.backgroundColor = '#007bff'; // team A color
+              p.style.backgroundColor = '#dc3545';
             } else if (p.classList.contains('team-b')) {
-              p.style.backgroundColor = '#dc3545'; // team B color
+              p.style.backgroundColor = '#007bff';
+            } else if (p.classList.contains('team-c')) {
+              p.style.backgroundColor = '#6f99a8';
             }
           });
-    
-          // highlight clicked player
+
           div.style.backgroundColor = '#fff733';
-        //   console.log(`Clicked ${player.name}`);
-
-
           showPlayerStats(player);
         });
-    
+
         field.appendChild(div);
-    });
-}
+      });
+  }
 
-// once we click on a player we should call this func to show player's stats
-export function showPlayerStats(player) {
+  // Initial render
+  renderMatchPlayers(matchSelect.value);
+
+  // Change event listener
+  matchSelect.addEventListener('change', () => {
+    renderMatchPlayers(matchSelect.value);
     const panel = document.querySelector('.stats-container');
-    const playerStatsPanel = document.getElementById('playerStatsPanel');
-    
-    if (!panel || !playerStatsPanel) {
-        console.error("Stats container or player stats panel not found!");
-        return;
-    }
-
-    panel.style.display = 'block'; // Show the stats panel
-
-    if (!player.stats) {
-        playerStatsPanel.innerHTML = `<h3>${player.name}</h3><p>No stats available for this player.</p>`;
-        return;
-      }
-
-    playerStatsPanel.innerHTML = `
-    <h3>${player.name} (#${player.number})</h3>
-    <ul>
-    <li>Passes: ${player.stats.passes.successful} (Successful), ${player.stats.passes.failed} (Failed)</li>
-    <li>Tackles: ${player.stats.tackles.successful} (Successful), ${player.stats.tackles.missed} (Missed)</li>
-    <li>Key Passes: ${player.stats.keyPasses}</li>
-    <li>Pressure Resistance: ${player.stats.pressureResistance}</li>
-    </ul>
-`;
-
-  // TODO: fix video viewer
-  const tbody = document.querySelector('#videoTable tbody');
-  tbody.innerHTML = `
-    <tr><td>Pass</td><td>12:45</td><td>Success</td><td><a href="#">View</a></td></tr>
-    <tr><td>Tackle</td><td>23:10</td><td>Miss</td><td><a href="#">View</a></td></tr>
-  `;
-
-//   const tbody = document.querySelector('#videoTable tbody');
-//   tbody.innerHTML = ''; // clear old videos
-
-//   data.videos.forEach(clip => {
-//     const tr = document.createElement('tr');
-//     tr.innerHTML = `
-//       <td>${clip.type}</td>
-//       <td>${clip.time}</td>
-//       <td>${clip.outcome}</td>
-//       <td><a href="${clip.clip}" target="_blank">View</a></td>
-//     `;
-//     tbody.appendChild(tr);
-//   });
-
-//   // Enable event filtering
-//   setupVideoFilter();
-}
-
-function setupVideoFilter() {
-  const filter = document.getElementById('eventFilter');
-  filter.addEventListener('change', e => {
-    const val = e.target.value;
-    const rows = document.querySelectorAll('#videoTable tbody tr');
-    rows.forEach(row => {
-      const type = row.children[0].textContent.toLowerCase();
-      row.style.display = (val === 'all' || val === type) ? '' : 'none';
-    });
+    panel.style.display = 'none'; // hide entire panel
   });
+  }
+
+export function showPlayerStats(playerId) {
+  const panel = document.querySelector('.stats-container');
+  const playerStatsPanel = document.getElementById('playerStatsPanel');
+  panel.style.display = 'block'; // or 'flex' if you're using flexbox
+
+  
+  if (!panel || !playerStatsPanel) {
+      console.error("Stats container or player stats panel not found!");
+      return;
+  }
+
+  panel.style.display = 'block'; // Show the stats panel
+
+  // Check if playerStatsData is available for the given playerId
+
+  const key = `${playerId.number}_${playerId.team}`;
+  console.log(playerStatsData[key]);
+  
+  const playerStats = playerStatsData[key];
+
+  if (!playerStats) {
+    playerStatsPanel.innerHTML = `<h3>No stats available for this player.</h3>`;
+    return;
 }
+
+// Build the stats HTML with improved structure
+playerStatsPanel.innerHTML = `
+    <div class="player-stats-container">
+        <h3 class="player-name">${playerStats.short_name} <span class="jersey-number">(#${playerStats.club_jersey_number})</span></h3>
+        <div class="stats-list">
+            <div class="stat-item">
+                <span class="stat-label">Position:</span> <span class="stat-value">${playerStats.player_positions}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Preferred Foot:</span> <span class="stat-value">${playerStats.preferred_foot}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Overall:</span> <span class="stat-value overall">${playerStats.overall}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Skill Moves:</span> <span class="stat-value">${playerStats.skill_moves}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Finishing:</span> <span class="stat-value">${playerStats.attacking_finishing}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Passing:</span> <span class="stat-value">${playerStats.passing || 'N/A'}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Defending:</span> <span class="stat-value">${playerStats.defending || 'N/A'}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Goalkeeping Diving:</span> <span class="stat-value">${playerStats.goalkeeping_diving}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Traits:</span> <span class="stat-value">${playerStats.player_traits}</span>
+            </div>
+        </div>
+    </div>
+`;
+} // stats

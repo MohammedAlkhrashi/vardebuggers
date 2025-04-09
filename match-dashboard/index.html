@@ -127,17 +127,33 @@
           <div id="playerStatsPanel"></div>
         </div>
       </div>
-
-      <div id="videoReviewSection">
+      
+      <section id="videoReviewSection">
         <h3>Video Review</h3>
-        <table id="videoTable">
-          <thead>
-            <tr><th>Event</th><th>Time</th><th>Outcome</th><th>Clip</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+      
+        <div id="filterControls">
+          <label for="eventSelect">Event:</label>
+          <select id="eventSelect">
+            <!-- <option value="">Pass</option> -->
+          </select>
+      
+          <label for="outcomeSelect">Outcome:</label>
+          <select id="outcomeSelect">
+            <!-- <option value="">-- Select Outcome --</option> -->
+            <option value="success">Success</option>
+            <option value="fail">Fail</option>
+          </select>
+      
+          <button id="loadClipsBtn">Load Clips</button>
+        </div>
+      
+      <div id="videoGrid" style="display: none;">
       </div>
-    </section>
+      <div id="accordionContainer" class="accordion"></div>
+    </div>
+      </section>
+      
+      
     <!-- View 2 END ############# -->
   </main>
 

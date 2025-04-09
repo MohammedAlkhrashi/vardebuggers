@@ -1,0 +1,127 @@
+{
+  "1": {
+    "pass": {
+      "success": [
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_094.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_021.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_014.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_095.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_028.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_009.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_010.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_089.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_024.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_023.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_022.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_085.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_056.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_055.mp4"
+      ],
+      "fail": []
+    },
+    "shot": {
+      "success": [
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_094.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_021.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_095.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_028.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_053.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_009.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_010.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_089.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_024.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_023.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_022.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_085.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_056.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_055.mp4"
+      ],
+      "fail": []
+    },
+    "tackle": {
+      "success": [
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_021.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_028.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_009.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_024.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_022.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_085.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_012.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_056.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_055.mp4"
+      ],
+      "fail": []
+    },
+    "header": {
+      "success": [
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_094.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_021.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_095.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_053.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_009.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_010.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_089.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_035.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_024.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_023.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_022.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_056.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_044.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_027.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_055.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_047.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_066.mp4"
+      ],
+      "fail": []
+    },
+    "dribble": {
+      "success": [
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_052.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_049.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_094.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_037.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_088.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_054.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_018.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_021.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_036.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_014.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_095.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_059.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_028.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_053.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_016.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_009.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_017.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_084.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_010.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_013.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_070.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_077.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_089.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_011.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_035.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_024.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_004.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_015.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_023.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_022.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_085.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_012.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_072.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_056.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_078.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_071.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_044.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_027.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_055.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_098.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_001.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_047.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_066.mp4",
+        "split_clips/burnley0-1arsenal-2015-04-11/clip_048.mp4"
+      ],
+      "fail": []
+    }
+  }
+}
