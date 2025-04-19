@@ -3,21 +3,28 @@ let videoData = {};  // This will be dynamically populated based on the selected
 
 const eventSelect = document.getElementById("eventSelect");
 const outcomeSelect = document.getElementById("outcomeSelect");
-const tbody = document.querySelector("#videoTable tbody");
+const matchSelect = document.getElementById("matchSelect");
 
-function populateEventOptions() {
-  // Clear previous options
-//   eventSelect.innerHTML = '<option value="">-- Select Event --</option>';
-  const events = Object.keys(videoData["1"]); // or dynamic match ID
-  events.forEach(event => {
-    const option = document.createElement("option");
-    option.value = event;
-    option.textContent = event.charAt(0).toUpperCase() + event.slice(1); // Capitalize first letter
-    eventSelect.appendChild(option);
-  });
+function populateEventOptions(matchId) {
+    // clear previous options
+    eventSelect.innerHTML = '';
+    clearVideoGrid();
+    const accordionContainer = document.getElementById("accordionContainer");
+    while (accordionContainer.firstChild) {
+        accordionContainer.removeChild(accordionContainer.firstChild);
+    }
+    const events = Object.keys(videoData[1]); // using 1 to match json file , this is not match id
+    console.log('Populating events for match:', matchId, events);
+    events.forEach(event => {
+        const option = document.createElement("option");
+        option.value = event;
+        option.textContent = event.charAt(0).toUpperCase() + event.slice(1); // Capitalize first letter
+        eventSelect.appendChild(option);
+    });
 }
 
-export async function loadVideoData(matchId) {  // Added `export` here
+export async function loadVideoData(matchId) {
+    console.log('Loading video data for match:', matchId);
     const matchIdMapped = matchId === 'Match 1' ? '1' : (matchId === 'Match 2' ? '2' : null);
 
     if (!matchIdMapped) {
@@ -25,21 +32,31 @@ export async function loadVideoData(matchId) {  // Added `export` here
         return;
     }
     try {
-        const response = await fetch(`data/player_actions_${matchIdMapped}.json`); // Fetch the specific match's JSON file
+        const response = await fetch(`data/player_actions_${matchIdMapped}.json`);
         const data = await response.json();
-        videoData = data; // Assign the fetched data to videoData
-        // After fetching the video data, populate event options
-        populateEventOptions();
+        videoData = data;
+        // After fetching the video data, populate event options with correct match ID
+        populateEventOptions(matchIdMapped);
     } catch (error) {
         console.error("Error loading match data:", error);
     }
 }
 
-function loadClips() {
-    // Clear the previous results
-    const accordionContainer = document.getElementById("accordionContainer");
-    accordionContainer.innerHTML = ""; // Reset the accordion container
+function clearVideoGrid() {
+    const videoGrid = document.getElementById('videoGrid');
+    while (videoGrid.firstChild) {
+        videoGrid.removeChild(videoGrid.firstChild);
+    }
+}
 
+function loadClips() {
+    clearVideoGrid();
+    const accordionContainer = document.getElementById("accordionContainer");
+    while (accordionContainer.firstChild) {
+        accordionContainer.removeChild(accordionContainer.firstChild);
+    }
+    // const selectedMatch = matchSelect.value;
+    // const matchId = selectedMatch === 'Match 1' ? '1' : '2';
     const selectedEvent = eventSelect.value;
     const selectedOutcome = outcomeSelect.value;
 
@@ -48,18 +65,17 @@ function loadClips() {
         return;
     }
 
-    // Get the clips for the selected event and outcome
-    const clips = videoData["1"][selectedEvent][selectedOutcome] || [];
+    // clips for the selected event and outcome using the correct match ID
+    const clips = videoData[1][selectedEvent][selectedOutcome] || []; 
 
     if (clips.length === 0) {
-        // Show a message if no clips are found
         const message = document.createElement("p");
         message.textContent = "No clips found for this combination.";
         accordionContainer.appendChild(message);
         return;
     }
 
-    // Loop through the clips and create an accordion item for each
+    // loop through the clips and create an accordion item for each
     clips.forEach(clipPath => {
         const accordionItem = document.createElement("div");
         accordionItem.classList.add("accordion-item");
@@ -105,38 +121,14 @@ function loadClips() {
     });
 }
 
-
-
-// const accordionItems = document.querySelectorAll('.accordion-item');
-
-// accordionItems.forEach(item => {
-//     const button = item.querySelector('.accordion-button');
-//     button.addEventListener('click', () => {
-//         // Toggle active class on the accordion item
-//         item.classList.toggle('active');
-        
-//         // // to close other items if we want only one to be open at a time
-//         // accordionItems.forEach(otherItem => {
-//         //     if (otherItem !== item) {
-//         //         otherItem.classList.remove('active');
-//         //     }
-//         // });
-//     });
-// });
-
-
-
-// // Initialize
-// populateEventOptions();
-
-// Load video data for a selected match (you can replace '1' with the matchId)
+// Initialize with Match 1
 loadVideoData('Match 1');
 
-// Event listener for loading clips based on selection
-document.getElementById("loadClipsBtn").addEventListener("click", loadClips);
-
-// Change event for match selection (to load the new match's clips)
+// Single event listener for match changes
 matchSelect.addEventListener('change', () => {
-  const selectedMatchId = matchSelect.value;
-  loadVideoData(selectedMatchId); // Load data for the selected match
+    const selectedMatchId = matchSelect.value;
+    loadVideoData(selectedMatchId);
 });
+
+// Event listener for loading clips
+document.getElementById("loadClipsBtn").addEventListener("click", loadClips);

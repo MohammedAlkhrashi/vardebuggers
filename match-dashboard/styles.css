@@ -1,611 +1,1158 @@
 /* Global styles */
-body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #1c1f26; /* soft dark - 1c1f26 */
-    color: #e0e0e0; /* off-white text */
-  }
+:root {
+  /* Primary colors inspired by football pitch and stadium */
+  --primary-color: #2E7D32;  /* Rich grass green */
+  --background-dark: #242832; /* Lighter stadium atmosphere */
+  --surface-dark: #2F3542;   /* Lighter surface for cards */
   
-  /* Header */
-  /* header {
-    background-color: #2b2f3a;
-    color: #ffbb00;
-    padding: 1rem;
-    text-align: center;
-  } */
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #1a1a1a; /* 1a1a1a or 2b2f3a */
-    color: #ebe7dd; /* ffbb00 */
-    border-bottom: 1px solid #333;
-  }
-
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
+  /* Text colors */
+  --text-primary: #FFFFFF;   /* Clear white for readability */
+  --text-secondary: #CBD5E1; /* Lighter gray for secondary text */
   
-  .club-logo {
-    height: 120px;
-    width: auto;
-  }
+  /* Football themed accent colors */
+  --accent-color: #FFC107;   /* Referee card yellow */
+  --success-color: #66BB6A;  /* Goal scored green */
+  --error-color: #EF5350;    /* Red card/warning red */
   
-  /* Controls and Tabs */
-  .controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin: 1rem 0;
+  /* Additional football colors */
+  --pitch-stripe: #2E7D32;   /* Darker grass stripe */
+  --pitch-light: #388E3C;    /* Lighter grass stripe */
+  --ball-color: #F5F5F5;     /* Classic ball white */
+  --line-color: rgba(255, 255, 255, 0.9); /* Field line color */
+  
+  /* Team colors */
+  --team-home: #E53935;      /* Home team red */
+  --team-away: #1E88E5;      /* Away team blue */
+  
+  /* UI Elements */
+  --card-gradient-start: #2F3542;
+  --card-gradient-end: #242832;
+  --header-color: #1e222b;   /* Slightly lighter header background */
+  --border-color: rgba(255, 255, 255, 0.15);
+  
+  --transition-speed: 0.2s;
 }
-  
-  /* Dropdown and Button Shared Sizing */
-  .styled-select,
-  .tabs .tab {
-    background-color: #2a2e38;
-    color: #f0f0f0;
-    padding: 0.5rem 1.5rem;
-    border: 1px solid #444;
-    border-radius: 4px;
-    font-size: 1rem;
-    height: 40px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.2s;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-dark);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--surface-dark);
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.club-logo {
+  height: 80px;
+  width: auto;
+  transition: transform var(--transition-speed);
+}
+
+.club-logo:hover {
+  transform: scale(1.05);
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Controls and Tabs */
+.controls {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.styled-select {
+  background-color: var(--surface-dark);
+  color: var(--text-primary);
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+.styled-select:hover, .styled-select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.25rem;
+  border-radius: 8px;
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+.tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.tab.active {
+  background: var(--primary-color);
+  color: var(--text-primary);
+}
+
+/* Main content */
+.view {
+  padding: 2rem;
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
   }
-  
+
+  .controls {
+    flex-direction: column;
+    width: 100%;
+  }
+
   .styled-select {
-    appearance: none;
+    width: 100%;
   }
-  
-  .styled-select:focus {
-    outline: none;
-    border-color: #007bff;
-  }
-  
-  /* Tabs styling */
+
   .tabs {
-    display: flex;
-    gap: 0.5rem;
+    width: 100%;
   }
-  
-  .tabs .tab:hover {
-    background: #4a4f5c;
-  }
-  
-  .tab.active {
-    background: #00aaff;
-    color: #fff;
-  }
-  /* end header controls */
 
+  .summary-section {
+    flex-direction: column;
+  }
 
-  /* Main View */
-  .view {
-    padding: 2rem;
+  .stats-column, .chart-section {
+    flex: 1 1 100%;
   }
-  
-  .hidden {
-    display: none;
+}
+
+@media (max-width: 480px) {
+  .tab {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
   }
-  
-  /* Stat Cards */
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Main View */
+.view {
+  padding: 2rem;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Stat Cards */
 
 /* Flex container for stats */
 .summary-section {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
-    margin-top: 1.5rem;
-  }
-  
-  /* Left column - Stats (Quick + Modeled Stats) */
-  .stats-column {
-    flex: 1 1 45%; /* Takes up 45% of the space */
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  /* List style for Quick Stats */
-  .stat-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    background: #1f222a;
-    border-radius: 8px;
-    color: #f5f5f5;
-  }
-  
-  .stat-list li {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #333;
-  }
-  
-  .stat-list li:last-child {
-    border-bottom: none;
-  }
-  
-  .stat-list small {
-    color: #aaa;
-    margin-left: 0.5rem;
-  }
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
 
-  .stat-value {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-  }
-  
-  /* .arrow {
-    font-size: 0.9rem;
-  } */
+/* Left column - Stats (Quick + Modeled Stats) */
+.stats-column {
+  flex: 1 1 45%; /* Takes up 45% of the space */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: linear-gradient(145deg, #2F3542, #242832);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-  /* Arrow base styling */
-  .arrow {
-    font-size: 15px;
-    margin-left: 5px;
-  }
+.stats-column h3 {
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-  /* Trend Up - Green */
-  .up-trend {
-    color: green;
-  }
+/* List style for Quick Stats */
+.stat-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
 
-  /* Trend Down - Red */
-  .down-trend {
-    color: red;
-  }
+.stat-list li {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background-color 0.2s ease;
+}
 
-  
-  /* Modeled Stats (stat cards for individual modeled stats)
-  .modeled-section {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  } */
-  
-  .stat-card.modeled {
-    background: #2f333d;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 170, 255, 0.15);
-    color: #f5f5f5;
-    flex: 1 1 45%; /* Ensures cards take up half of the container each */
-  }
+.stat-list li:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
 
-  /* match summary */
-  .fifa-summary {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-  
-  .summary-card h4 {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-  }
-  
-  .bar-container {
-    display: flex;
-    height: 24px;
-    border-radius: 4px;
-    overflow: hidden;
-    background: #ddd;
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: #fff;
-  }
-  
-  .bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-  }
-  
-  .bar.away {
-    background-color: #0767cd;
-  }
-  
-  .bar.home {
-    background-color: #d22124;
-  }
-  
-  
-  /* Right column - Charts */
-  .chart-section {
-    flex: 1 1 45%; /* Takes up 45% of the space */
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
+.stat-list li:last-child {
+  border-bottom: none;
+}
 
-  /* chart size */
-  #possessionChart {
-    width: 200px !important;
-    height: 200px !important;
-    max-width: 100%;
-    margin: auto;
-  }
+.stat-value {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-weight: 500;
+}
 
-  .chart-figure {
-  text-align: center;
-  margin: 1rem 0;
+.stat-value small {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.arrow {
+  font-size: 0.8rem;
+  padding: 0.2rem;
+  border-radius: 4px;
+}
+
+/* trends */
+.up-trend {
+  color: #4CAF50;
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.down-trend {
+  color: #f44336;
+  background: rgba(244, 67, 54, 0.1);
+}
+
+/* Modeled Stats (stat cards for individual modeled stats)
+.modeled-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+} */
+
+.stat-card.modeled {
+  background: #2f333d;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 170, 255, 0.15);
+  color: #f5f5f5;
+  flex: 1 1 45%; /* Ensures cards take up half of the container each */
+}
+
+/* match summary */
+.fifa-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.summary-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-card h4 {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+
+.bar-container {
+  height: 28px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: width 0.3s ease;
+}
+
+.bar.home {
+  background: linear-gradient(90deg, #e53935, #ef5350);
+}
+
+.bar.away {
+  background: linear-gradient(90deg, #1e88e5, #42a5f5);
+}
+
+/* .bar.pass {
+  background: linear-gradient(90deg, var(--primary-color), #4CAF50);
+}
+
+.bar.yellow {
+  background: linear-gradient(90deg, #ffc107, #ffca28);
+  color: #000;
+} */
+
+/* Right column - Charts */
+.chart-section {
+  flex: 1 1 45%; /* Takes up 45% of the space */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: linear-gradient(145deg, #2F3542, #242832);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chart-section h3 {
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* chart size */
+#possessionChart {
+  width: 200px !important;
+  height: 200px !important;
+  max-width: 100%;
+  margin: auto;
+}
+
+.chart-figure {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .chart-figure figcaption {
-  margin-bottom: 0.9rem;
-  font-size: 0.9rem;
-  color: #ccc;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 /* last 5 games table */
 .match-history {
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 1.5rem;
-  font-size: 0.95rem;
-  background-color: #1f222a;
-  color: #f0f0f0;
+  border-collapse: separate;
+  border-spacing: 0;
   border-radius: 8px;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.match-history th,
-.match-history td {
-  padding: 0.75rem 1rem;
+.match-history th {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1rem;
+  font-weight: 500;
   text-align: left;
-  border-bottom: 1px solid #333;
+  color: var(--text-secondary);
 }
 
-.match-history thead {
-  background-color: #2d2d44;
+.match-history td {
+  padding: 0.8rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.match-history tbody tr {
+  transition: background-color 0.2s ease;
 }
 
 .match-history tbody tr:hover {
-  background-color: #2b2b3a;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .match-history .win {
-  color: #00ff99;
-  font-weight: bold;
+  color: #4CAF50;
+  font-weight: 500;
 }
 
 .match-history .loss {
-  color: #ff4c4c;
-  font-weight: bold;
+  color: #f44336;
+  font-weight: 500;
 }
 
 .match-history .draw {
   color: #ffc107;
+  font-weight: 500;
+}
+
+/* start VIEW 2 - Field, player stats, video */
+.field {
+  position: relative;
+  width: 100%;
+  max-width: none;  /* Remove max-width constraint */
+  aspect-ratio: 2 / 1;
+  margin: 20px auto;
+  background: linear-gradient(
+    45deg,
+    var(--pitch-stripe) 0%,
+    var(--pitch-light) 25%,
+    var(--pitch-stripe) 50%,
+    var(--pitch-light) 75%,
+    var(--pitch-stripe) 100%
+  );
+  border: 4px solid white;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+
+/* Midfield line */
+.field::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  background: var(--line-color);
+  transform: translateX(-50%);
+}
+
+/* Center circle */
+.field::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  border: 2px solid var(--line-color);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Center spot */
+.field .center-spot {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: var(--line-color);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Penalty areas */
+.field .penalty-area-left,
+.field .penalty-area-right {
+  position: absolute;
+  top: 50%;
+  width: 18%;
+  height: 60%;
+  border: 2px solid var(--line-color);
+  transform: translateY(-50%);
+}
+
+.field .penalty-area-left {
+  left: 0;
+  border-left: none;
+}
+
+.field .penalty-area-right {
+  right: 0;
+  border-right: none;
+}
+
+/* Goal areas */
+.field .goal-area-left,
+.field .goal-area-right {
+  position: absolute;
+  top: 50%;
+  width: 8%;
+  height: 30%;
+  border: 2px solid var(--line-color);
+  transform: translateY(-50%);
+}
+
+.field .goal-area-left {
+  left: 0;
+  border-left: none;
+}
+
+.field .goal-area-right {
+  right: 0;
+  border-right: none;
+}
+
+/* Penalty spots */
+.field .penalty-spot-left,
+.field .penalty-spot-right {
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  background: var(--line-color);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.field .penalty-spot-left {
+  left: 12%;
+}
+
+.field .penalty-spot-right {
+  right: 12%;
+}
+
+/* Corner arcs */
+.field .corner-arc {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--line-color);
+  border-radius: 50%;
+}
+
+.field .corner-arc-top-left {
+  top: -10px;
+  left: -10px;
+  border-bottom-right-radius: 0;
+  border-top: none;
+  border-left: none;
+}
+
+.field .corner-arc-top-right {
+  top: -10px;
+  right: -10px;
+  border-bottom-left-radius: 0;
+  border-top: none;
+  border-right: none;
+}
+
+.field .corner-arc-bottom-left {
+  bottom: -10px;
+  left: -10px;
+  border-top-right-radius: 0;
+  border-bottom: none;
+  border-left: none;
+}
+
+.field .corner-arc-bottom-right {
+  bottom: -10px;
+  right: -10px;
+  border-top-left-radius: 0;
+  border-bottom: none;
+  border-right: none;
+}
+
+/* Goals */
+.field .goal-left,
+.field .goal-right {
+  position: absolute;
+  top: 50%;
+  width: 3%;
+  height: 20%;
+  border: 2px solid var(--line-color);
+  transform: translateY(-50%);
+}
+
+.field .goal-left {
+  left: -3%;
+  border-left: none;
+}
+
+.field .goal-right {
+  right: -3%;
+  border-right: none;
+}
+
+/* Player dots - updated for better visibility */
+.player {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: white;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 26px;
+  font-size: 12px;
   font-weight: bold;
+  color: black;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-
-
-  /* start VIEW 2 - Field, player stats, video */
-  .field {
-    position: relative;
-    width: 100%;
-    max-width: 800px;
-    aspect-ratio: 2 / 1; /* Keeps it proportional */
-    margin: 20px auto;
-    background: #36a23a; /* pitch green */
-    border: 4px solid white;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    overflow: hidden;
-  }
-  
-  /* Midfield line */
-  .field::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 4px;
-    height: 100%;
-    background: white;
-    transform: translateX(-50%);
-  }
-  
-  /* Center circle */
-  .field::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100px;
-    height: 100px;
-    border: 2px solid white;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-  }  
-
-  /* Player dots */
-  .player {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: white;
-    border: 2px solid #333;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 40px;
-    font-size: 12px;
-    font-weight: bold;
-    color: black;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-  }
-  
-  .player.team-a {
-    background-color: #dc3545;
-  }
-  .player.team-b {
-    background-color: #007bff;
-  }
-  .player.team-c {
-    background-color: #6f99a8;
-  }
-  
-  /* Video Grid */
-
-  #filterControls {
-    margin-bottom: 1rem;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-  
-  select, button {
-    padding: 6px 10px;
-    font-size: 1rem;
-  }
-  /* Button specific styling */
-  button {
-    background-color: #ffc107; /* Green background */
-    color: black; /* White text color */
-    border: none; /* Remove border */
-    cursor: pointer; /* Pointer cursor on hover */
-  }
-  select {
-    padding: 8px 14px; /* Slightly larger padding */
-    font-size: 1rem;
-    border-radius: 12px; /* More rounded corners */
-    background-color: #fff; /* White background */
-    color: #333; /* Dark text color */
-    transition: all 0.3s ease; /* Smooth transition for hover effect */
-    appearance: none; /* Remove default browser dropdown styling */
+.player:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
-  
-  .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 16px;
-      padding: 20px;
-  }
 
-  .video-container {
-      position: relative;
-      cursor: pointer;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      overflow: hidden;
-  }
+.player.team-a {
+  background-color: var(--team-home);
+  color: var(--text-primary);
+}
 
-  .video-container video {
-      width: 100%;
-      height: auto;
-  }
+.player.team-b {
+  background-color: var(--team-away);
+  color: var(--text-primary);
+}
 
-  .video-container:hover {
-      border-color: #4CAF50;
-  }
+.player.team-c {
+  background-color: #6f99a8;
+  color: var(--text-primary);
+}
 
-  /* END */
-  
+/* Video Grid */
+
+#filterControls {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+select, button {
+  padding: 6px 10px;
+  font-size: 1rem;
+}
+/* Button specific styling */
+button {
+  /* background-color: #ffc107; Green background */
+  /* color: black; White text color */
+  border: none; /* Remove border */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+select {
+  padding: 8px 14px; /* Slightly larger padding */
+  font-size: 1rem;
+  border-radius: 12px; /* More rounded corners */
+  background-color: #fff; /* White background */
+  color: #333; /* Dark text color */
+  transition: all 0.3s ease; /* Smooth transition for hover effect */
+  appearance: none; /* Remove default browser dropdown styling */
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.video-container {
+  position: relative;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.video-container video {
+  width: 100%;
+  height: auto;
+}
+
+.video-container:hover {
+  border-color: #4CAF50;
+}
+
+/* END */
+
 /* Container for field and stats panel */
-  /* Field container */
-  .field-container {
-    flex: 1;
-    position: relative; /* Position for absolute elements like players */
-    height: 450px; /* Adjust field height */
-    background-color: #2a2e38; /* Background color of the field */
-    border: 1px solid #444;
-    border-radius: 8px;
-  }
-  
-  /* Stats panel container */
-  #playerStatsPanel {
-    background: #2a2e38;
-    padding: 1.5rem;
-    border-radius: 8px;
-    /* border: 1px solid #444; */
-    color: #f0f0f0;
-  }
-  
-  .container {
-    display: flex;
-    justify-content: space-between;
-    gap: 1.5rem; /* Gap between the field and the stats panel */
-    padding: 2rem;
-  }
+/* Field container */
+.field-container {
+  width: 100%;
+}
 
-  .stats-container {
-    display: none;
-    width: 300px;
-    max-width: 350px;
-    background: #2a2e38;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid #444;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  }
+#videoReviewSection {
+  width: 100%;
+  height: fit-content;
+}
 
-  /* Container for player stats */
-  .player-stats-container {
-    font-family: Arial, sans-serif;
-    max-width: 400px;
-    margin: 0 auto;
-    background-color: #d4e4e3;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+#videoReviewSection h3 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
 
-  /* Player name and jersey number */
-  .player-name {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 10px;
-  }
+#filterControls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
 
-  .jersey-number {
-    font-size: 0.9em;
-    color: #7f8c8d;
-  }
+#filterControls select {
+  background: var(--surface-dark);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  flex: 1;
+}
 
-  /* List of stats */
-  .stats-list {
-    list-style: none;
-    padding: 0;
-  }
+#filterControls label {
+  color: var(--text-secondary);
+  min-width: 60px;
+}
 
-  /* Each stat item */
-  .stat-item {
-    display: flex;
-    margin-bottom: 8px;
-    font-size: 1em;
-  }
+#loadClipsBtn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
 
-  /* Label for each stat */
-  .stat-label {
-    font-weight: bold;
-    margin-right: 10px;
-    color: #34495e;
-  }
+#loadClipsBtn:hover {
+  background: #388E3C;
+}
 
-  /* Value for each stat */
-  .stat-value {
-    color: #16a085;
-  }
+/* Stats panel container */
+#playerStatsPanel {
+  background: linear-gradient(145deg, var(--card-gradient-start), var(--card-gradient-end));
+  padding: 1.5rem;
+  border-radius: 12px;
+  color: #f0f0f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-out;
+  border: 1px solid var(--border-color);
+}
 
-  /* Special highlight for 'Overall' and 'Goalkeeping Diving' */
-  .overall {
-    color: #e74c3c;
-    font-weight: bold;
-  }
+.container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;  /* 2/3 for field+video, 1/3 for stats */
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1800px;
+  margin: 0 auto;
+}
 
-  
-  /* Player Stats Panel */
-  /* #playerStatsPanel {
-    color: #f0f0f0;
-  }
-  
-  #playerStatsPanel h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-   */
-  /* Stat Cards */
-  /* #playerStatsPanel .stat-card {
-    background: #3a3f4b;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-  }
-  
-  #playerStatsPanel .stat-card h4 {
-    font-size: 1.2rem;
-  }
-  
-  #playerStatsPanel .stat-card p {
-    font-size: 1rem;
-  } */
+.field-and-video {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
 
-  .stats-list {
-      list-style: none;
-      padding-left: 0;
-  }
+.stats-container { /* TODO: sticky or not?? */
+  width: 100%;
+  height: fit-content;
+  /* position: sticky; */
+  top: 2rem;  /* Add some space from the top */
+}
 
-  .stats-list li {
-      margin: 0.5rem 0;
-      font-size: 14px;
-  }
+/* Container for player stats */
+.player-stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;  /* Increased spacing between sections */
+}
 
-  /* Style the accordion container */
-  .accordion {
-    margin: 20px 0;
-    padding: 0;
-    border: none;
-  }
+/* Player header section */
+.player-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, rgba(46, 125, 50, 0.1), rgba(46, 125, 50, 0.05));
+  border-radius: 10px;
+  padding: 1rem;
+  border: 1px solid rgba(46, 125, 50, 0.2);
+}
 
-  /* Style each accordion item */
-  /* .accordion-item {
-    border-bottom: 1px solid #ccc;
-  } */
+.player-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border: 3px solid var(--primary-color);
+  background: linear-gradient(145deg, #343842, #2a2e38);
+}
 
-  /* Style the accordion button */
-  .accordion-button {
-    background-color: #f1f1f1;
-    border: 1px solid #444;
-    padding: 15px;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-    font-size: 1rem;
-    /* font-weight: 300; */
-    transition: background-color 0.3s ease;
-  }
+.player-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
 
-  /* Change button background color on hover */
-  .accordion-button:hover {
-    background-color: #ddd;
-  }
+.player-avatar:hover .player-image {
+  transform: scale(1.1);
+}
 
-  /* Initially hide the accordion content */
-  .accordion-content {
-    padding: 0 15px;
-    display: none;
-    overflow: hidden; /* Hide content overflow */
-    max-height: 0;    /* Start with 0 height */
-    opacity: 0;       /* Start with 0 opacity */
-    transition: all 0.3s ease-out;
-  }
+.jersey-number {
+  font-size: 1rem;
+  color: var(--accent-color);
+  margin-top: 0.2rem;
+}
 
-  /* When the accordion is active (expanded), show content with smooth transition */
-  .accordion-item.active .accordion-content {
-    display: block;
-    max-height: 1000px; /* Allow it to expand */
-    opacity: 1;         /* Set opacity to 1 */
-    padding: 15px;      /* Add padding when expanded */
-  }
+/* Traits section */
+.traits-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, rgba(46, 125, 50, 0.1), rgba(46, 125, 50, 0.05));
+  border-radius: 10px;
+  padding: 1.5rem;
+  border: 1px solid rgba(46, 125, 50, 0.2);
+}
 
-  .accordion-content .clip {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 0;
-  }
-  
-  .accordion-content video {
-    width: 100%;
-    max-width: 640px; /* Adjust as needed */
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  }
-  
+.traits-header {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.traits-content {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.player-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.player-info {
+  flex: 1;
+}
+
+.player-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.player-position {
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  margin-top: 0.2rem;
+}
+
+/* Stats grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* Two columns for main stats */
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.stat-card {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05));
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.stat-card:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.3rem;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Progress bars for stats */
+.stat-progress {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.stat-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), #4CAF50);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Match performance section */
+.match-performance {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.performance-header {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.performance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* Three columns for better distribution */
+  gap: 1rem;  /* Increased gap between stats */
+  padding: 0.5rem;
+}
+
+.performance-stat {
+  text-align: center;
+  padding: 0.75rem;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.performance-stat:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.performance-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  margin-bottom: 0.5rem;
+}
+
+.performance-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  white-space: nowrap;  /* Prevent text wrapping */
+}
+
+/* Trend indicators */
+.trend-up {
+  color: var(--success-color);
+}
+
+.trend-down {
+  color: var(--error-color);
+}
+
+.trend-icon {
+  font-size: 0.8rem;
+}
+
+/* Heat map section */
+.heatmap-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.heatmap-header {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.heatmap {
+  width: 100%;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.stats-list li {
+  margin: 0.5rem 0;
+  font-size: 14px;
+}
+
+/* Style the accordion container */
+.accordion {
+  margin: 20px 0;
+  padding: 0;
+  border: none;
+}
+
+/* Style each accordion item */
+/* .accordion-item {
+  border-bottom: 1px solid #ccc;
+} */
+
+/* Style the accordion button */
+.accordion-button {
+  background-color: #f1f1f1;
+  border: 1px solid #444;
+  padding: 15px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+  /* font-weight: 300; */
+  transition: background-color 0.3s ease;
+}
+
+/* Change button background color on hover */
+.accordion-button:hover {
+  background-color: #ddd;
+}
+
+/* Initially hide the accordion content */
+.accordion-content {
+  padding: 0 15px;
+  display: none;
+  overflow: hidden; /* Hide content overflow */
+  max-height: 0;    /* Start with 0 height */
+  opacity: 0;       /* Start with 0 opacity */
+  transition: all 0.3s ease-out;
+}
+
+/* When the accordion is active (expanded), show content with smooth transition */
+.accordion-item.active .accordion-content {
+  display: block;
+  max-height: 1000px; /* Allow it to expand */
+  opacity: 1;         /* Set opacity to 1 */
+  padding: 15px;      /* Add padding when expanded */
+}
+
+.accordion-content .clip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.accordion-content video {
+  width: 100%;
+  max-width: 640px; /* Adjust as needed */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.github-link:hover {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.github-link svg {
+  transition: transform 0.2s ease;
+}
+
+.github-link:hover svg {
+  transform: rotate(360deg);
+}
+
+.github-link span {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
 
 
