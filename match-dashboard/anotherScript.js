@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
           shots: { home: 12, away: 7 },
           passAccuracy: { home: 85, away: 68 },
           cornerKicks: { home: 5, away: 6 },
+          saves: { home: 5, away: 7 },
           yellowCards: { home: 1, away: 1 },
         },
         lastFiveGames: [{
@@ -50,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
           shots: { home: 5, away: 4 },
           passAccuracy: { home: 79, away: 73 },
           cornerKicks: { home: 6, away: 1 },
+          saves: { home: 4, away: 4 },
           yellowCards: { home: 0, away: 2 },
         },
         lastFiveGames:[
@@ -276,6 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const shotsWidth = getWidthPercentage(data.postMatchSummary.shots.home, data.postMatchSummary.shots.away);
         const passAccuracyWidth = getWidthPercentage(data.postMatchSummary.passAccuracy.home, data.postMatchSummary.passAccuracy.away);
         const cornerKicksWidth = getWidthPercentage(data.postMatchSummary.cornerKicks.home, data.postMatchSummary.cornerKicks.away);
+        const savesWidth = getWidthPercentage(data.postMatchSummary.saves.home, data.postMatchSummary.saves.away);
         const yellowCardsWidth = getWidthPercentage(data.postMatchSummary.yellowCards.home, data.postMatchSummary.yellowCards.away);
 
         // Apply the calculated width percentages to the bars
@@ -287,6 +290,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.bar.away.corner').style.width = `${cornerKicksWidth.away}%`;
         document.querySelector('.bar.home.yellow').style.width = `${yellowCardsWidth.home}%`;
         document.querySelector('.bar.away.yellow').style.width = `${yellowCardsWidth.away}%`;
+        document.querySelector('.bar.home.saves').style.width = `${savesWidth.home}%`;
+        document.querySelector('.bar.away.saves').style.width = `${savesWidth.away}%`;
 
         // Optionally, update the numbers inside the bars
         document.querySelector('.bar.home').textContent = data.postMatchSummary.shots.home;
@@ -297,6 +302,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.bar.away.corner').textContent = data.postMatchSummary.cornerKicks.away;
         document.querySelector('.bar.home.yellow').textContent = data.postMatchSummary.yellowCards.home;
         document.querySelector('.bar.away.yellow').textContent = data.postMatchSummary.yellowCards.away;
+        document.querySelector('.bar.home.saves').textContent = data.postMatchSummary.saves.home;
+        document.querySelector('.bar.away.saves').textContent = data.postMatchSummary.saves.away;
 
 
         // document.querySelector('.bar.home').style.width = `${data.postMatchSummary.shots.home}`;
