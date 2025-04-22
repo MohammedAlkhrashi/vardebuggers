@@ -139,6 +139,9 @@ h1 {
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-speed);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
 }
 
 .tab:hover {
@@ -148,6 +151,17 @@ h1 {
 .tab.active {
   background: var(--primary-color);
   color: var(--text-primary);
+}
+
+.tennis-tab {
+  background: var(--accent-color);
+  color: var(--background-dark);
+}
+
+.tennis-tab:hover {
+  background: var(--accent-color);
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
 /* Main content */
@@ -207,6 +221,13 @@ h1 {
 }
 
 /* Stat Cards */
+#matchTitle {
+  text-align: center;
+}
+
+#matchTitle2 {
+  text-align: center;
+}
 
 /* Flex container for stats */
 .summary-section {
@@ -673,58 +694,128 @@ h1 {
   color: var(--text-primary);
 }
 
-/* Video Grid */
-
-#filterControls {
-  margin-bottom: 1rem;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-select, button {
-  padding: 6px 10px;
-  font-size: 1rem;
-}
-/* Button specific styling */
-button {
-  /* background-color: #ffc107; Green background */
-  /* color: black; White text color */
-  border: none; /* Remove border */
-  cursor: pointer; /* Pointer cursor on hover */
-}
-select {
-  padding: 8px 14px; /* Slightly larger padding */
-  font-size: 1rem;
-  border-radius: 12px; /* More rounded corners */
-  background-color: #fff; /* White background */
-  color: #333; /* Dark text color */
-  transition: all 0.3s ease; /* Smooth transition for hover effect */
-  appearance: none; /* Remove default browser dropdown styling */
-}
-
-.video-grid {
+/* Video Grid Styles */
+#videoGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 16px;
-  padding: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
-.video-container {
-  position: relative;
-  cursor: pointer;
-  border: 2px solid #ddd;
+.video-item {
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.video-item:hover {
+  transform: translateY(-2px);
+}
+
+.video-thumbnail {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
   overflow: hidden;
 }
 
-.video-container video {
+.video-thumbnail img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
-.video-container:hover {
-  border-color: #4CAF50;
+.video-thumbnail .timestamp {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.video-info {
+  padding: 0.8rem;
+}
+
+.video-info h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.play-btn {
+  width: 100%;
+  padding: 0.5rem;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.play-btn:hover {
+  background: #388E3C;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: var(--error-color);
+  background: rgba(244, 67, 54, 0.1);
+  border-radius: 8px;
+}
+
+/* Filter Controls Update */
+#filterControls {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+#filterControls label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+#filterControls select {
+  background: var(--surface-dark);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+#loadClipsBtn {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 0.9rem;
+}
+
+#loadClipsBtn:hover {
+  background: #388E3C;
 }
 
 /* END */
@@ -1151,6 +1242,366 @@ select {
 
 .github-link span {
   font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* ################### */
+/* ################### */
+/* ################### */
+
+/* Tennis Court Styles */
+.tennis-court {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  background: #2c5530;
+  border: 2px solid white;
+  border-radius: 4px;
+  margin: 20px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Court Lines */
+.baseline-top,
+.baseline-bottom {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: white;
+}
+
+.baseline-top { top: 0; }
+.baseline-bottom { bottom: 0; }
+
+.singles-line-left,
+.singles-line-right {
+  position: absolute;
+  height: 100%;
+  width: 2px;
+  background: white;
+}
+
+.singles-line-left { left: 13.5%; }
+.singles-line-right { right: 13.5%; }
+
+.service-line-top,
+.service-line-bottom {
+  position: absolute;
+  width: 73%;
+  height: 2px;
+  background: white;
+  left: 13.5%;
+}
+
+.service-line-top { top: 21%; }
+.service-line-bottom { bottom: 21%; }
+
+.center-line-top,
+.center-line-bottom {
+  position: absolute;
+  width: 2px;
+  height: 21%;
+  background: white;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.center-line-top { top: 0; }
+.center-line-bottom { bottom: 0; }
+
+.center-mark-top,
+.center-mark-bottom {
+  position: absolute;
+  width: 10px;
+  height: 2px;
+  background: white;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.center-mark-top { top: 0; }
+.center-mark-bottom { bottom: 0; }
+
+.net {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: white;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Tennis specific styles */
+.tennis-stats .stat-value {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', monospace;
+}
+
+.tennis-stats .stat-value .home {
+  color: var(--team-home);
+  font-weight: 600;
+}
+
+.tennis-stats .stat-value .away {
+  color: var(--team-away);
+  font-weight: 600;
+}
+
+.tennis-stats .stat-value small {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-left: 0.5rem;
+}
+
+.tennis-stats .stat-value .trend {
+  font-size: 0.9rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(76, 175, 80, 0.1);
+  color: var(--success-color);
+}
+
+.tennis-stats .stat-value .trend[data-trend^="-"] {
+  background: rgba(244, 67, 54, 0.1);
+  color: var(--error-color);
+}
+
+.tennis-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.tennis-history td:nth-child(3) {
+  font-family: 'Inter', monospace;
+}
+
+.court-figure {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.court-figure figcaption {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Tennis shot markers */
+.shot-marker {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.shot-marker:hover {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+.shot-marker.winner {
+  background: var(--success-color);
+}
+
+.shot-marker.error {
+  background: var(--error-color);
+}
+
+.shot-marker.ace {
+  background: var(--accent-color);
+}
+
+.shot-marker.serve {
+  background: #2196F3;
+}
+
+.shot-marker.return {
+  background: #FF9800;
+}
+
+/* Tennis specific chart sizes */
+#serveChart,
+#shotChart {
+  width: 100%;
+  height: 200px;
+  max-width: 100%;
+  margin: auto;
+}
+
+/* Tennis video section */
+#videoReviewSection {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(145deg, #2F3542, #242832);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#videoReviewSection h3 {
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Tennis filter controls */
+#filterControls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+#filterControls select {
+  background: var(--surface-dark);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  flex: 1;
+}
+
+#filterControls label {
+  color: var(--text-secondary);
+  min-width: 60px;
+}
+
+#loadClipsBtn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#loadClipsBtn:hover {
+  background: #388E3C;
+}
+
+/* Tennis video grid */
+#videoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.video-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.video-item:hover {
+  transform: translateY(-2px);
+}
+
+.video-item video {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+}
+
+.video-info {
+  padding: 1rem;
+}
+
+.video-info h4 {
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.video-info p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-2px);
+}
+
+.back-button svg {
+  transition: transform 0.2s ease;
+}
+
+.back-button:hover svg {
+  transform: translateX(-2px);
+}
+
+.back-button span {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Tennis history table */
+.tennis-history {
+  margin-top: 1rem;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tennis-history th {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1rem;
+  font-weight: 500;
+  text-align: left;
+  color: var(--text-secondary);
+}
+
+.tennis-history td {
+  padding: 0.8rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tennis-history tr:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.tennis-history td.w {
+  color: var(--success-color);
+  font-weight: 500;
+}
+
+.tennis-history td.l {
+  color: var(--error-color);
+  font-weight: 500;
+}
+
+.tennis-history td.d {
+  color: var(--accent-color);
   font-weight: 500;
 }
 

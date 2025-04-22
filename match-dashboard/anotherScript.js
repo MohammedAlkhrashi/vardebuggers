@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to update stats and chart dynamically
     function updateMatchData(data) {
         if (data.name) {
-            document.getElementById('matchTitle').textContent = `Team Stats Overview: ${data.name}`;
+            document.getElementById('matchTitle').textContent = `${data.name}`;
           }
       // Update stats section
       // Assuming the data object holds the current match stats

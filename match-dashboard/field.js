@@ -1,6 +1,12 @@
 // player view page
 let playerStatsData = {};
 
+const matchData = {
+    "Match 1": {
+      name: "2015-09-26 - Arsenal 5 - 2 Leicester"},
+    "Match 2": {
+      name: "2015-04-11 - Arsenal 1 - 0 Burnley"}};
+
 fetch('data/playerStats.json')
     .then(response => response.json())
     .then(data => {
@@ -15,6 +21,7 @@ fetch('data/playerStats.json')
 export function renderPlayers(containerSelector) {
     const field = document.querySelector(containerSelector);
     const matchSelect = document.getElementById('matchSelect');
+    document.getElementById('matchTitle2').textContent = matchData['Match 1'].name;
   
     // players
     const players = [
@@ -111,6 +118,9 @@ export function renderPlayers(containerSelector) {
     renderMatchPlayers(matchSelect.value);
     const panel = document.querySelector('.stats-container');
     panel.style.display = 'none'; // hide entire panel
+    
+    const selectedMatch = matchSelect.value; // assuming the select values are "Match 1", "Match 2", etc.
+    document.getElementById('matchTitle2').textContent = matchData[selectedMatch].name;
   });
   }
 
@@ -246,7 +256,7 @@ playerStatsPanel.innerHTML = `
         <div class="traits-section">
             <h4 class="traits-header">Player Traits</h4>
             <div class="traits-content">
-                ${playerStats.player_traits}
+                ${playerStats.player_traits || 'Player Traits Not Available'}
             </div>
         </div>
     </div>
