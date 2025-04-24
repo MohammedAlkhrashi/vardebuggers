@@ -5,7 +5,7 @@
 
 Setting up this will require ```nodejs```: ```npm```
 
-## backend/
+## backend and model inference
 This contains the code used for performing for computing the model outputs, splitting and processing the videos, and evaluating and gathering the data.
 
 To set up, you will need to install the following dependencies: 
@@ -24,10 +24,19 @@ pip install ultralytics
 To acquire the testing the data, please follow the instructions from SoccerNet to request access (will need to sign an NDA)
 Instructions: https://www.soccer-net.org/data
 
-To compute the model predictions run:
-
+To compute the model predictions for the soccer track, 
 ```
-python vlm_inference.py
+python pipline_inference_soccer.py
 ```
 
 This will output a directory ```model_outputs``` containing the results per match.
+
+To compute the model predictions for the tennis track, run:
+```
+python pipline_inference_tennis.py
+```
+
+To apply the tracking model (or jersey identification model) on the data run:
+```
+python apply_tracking.py
+```
