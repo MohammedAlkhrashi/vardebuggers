@@ -1,11 +1,34 @@
 // Global video data (example format - can be fetched dynamically later)
-let videoData = {};  // This will be dynamically populated based on the selected match
+let videoData = {
+        "1": {
+        "serve": {
+            "success": [
+            "tennis/1.mp4",
+            "tennis/4.mp4"
+            ],
+            "fail": ["tennis/2.mp4"]
+        },
+        "net": {
+            "success": [
+            "tennis/2.mp4"
+            ],
+            "fail": []
+        },
+        "rally": {
+            "success": [
+            "tennis/3.mp4",
+            "tennis/5.mp4"
+            ],
+            "fail": []
+        }
+        }
+    };
 
 const eventSelect = document.getElementById("eventSelect");
 const outcomeSelect = document.getElementById("outcomeSelect");
 const matchSelect = document.getElementById("matchSelect");
 
-function populateEventOptions(matchId) {
+function populateEventOptions() {
     // clear previous options
     eventSelect.innerHTML = '';
     clearVideoGrid();
@@ -14,7 +37,7 @@ function populateEventOptions(matchId) {
         accordionContainer.removeChild(accordionContainer.firstChild);
     }
     const events = Object.keys(videoData[1]); // using 1 to match json file , this is not match id
-    console.log('Populating events for match:', matchId, events);
+    console.log('Populating events for tennis', events);
     events.forEach(event => {
         const option = document.createElement("option");
         option.value = event;
@@ -23,20 +46,10 @@ function populateEventOptions(matchId) {
     });
 }
 
-export async function loadVideoData(matchId) {
-    console.log('Loading video data for match:', matchId);
-    const matchIdMapped = matchId === 'Match 1' ? '1' : (matchId === 'Match 2' ? '2' : null);
-
-    if (!matchIdMapped) {
-        console.error("Invalid match selected.");
-        return;
-    }
+export async function loadVideoData() {
+    console.log('Loading video data for tennis');
     try {
-        const response = await fetch(`data/player_actions_${matchIdMapped}.json`);
-        const data = await response.json();
-        videoData = data;
-        // After fetching the video data, populate event options with correct match ID
-        populateEventOptions(matchIdMapped);
+        populateEventOptions(videoData);
     } catch (error) {
         console.error("Error loading match data:", error);
     }
@@ -100,12 +113,29 @@ function loadClips() {
         clipDiv.classList.add("clip");
 
         const video = document.createElement("video");
-        video.src = `data/${clipPath}`;
+        // video.src = `data/${clipPath}`;
+        video.src = `data/${clipPath}?v=${new Date().getTime()}`;
         video.controls = true;
         video.width = 180;
 
         clipDiv.appendChild(video);
         content.appendChild(clipDiv);
+
+        // Handle video load success
+        video.addEventListener("canplay", () => {
+            console.log(`✅ Video loaded successfully: ${clipPath}`);
+            // Optionally add a class or UI indicator for success
+        });
+
+        // Handle video load failure
+        video.addEventListener("error", (e) => {
+            console.error(`❌ Failed to load video: ${clipPath}`, e);
+            video.poster = "path/to/fallback-image.jpg"; // Optional fallback
+            // Or display a message:
+            const errorMsg = document.createElement("p");
+            // errorMsg.textContent = "Video could not be loaded.";
+            clipDiv.appendChild(errorMsg);
+        });
 
         // Append the content to the accordion item
         accordionItem.appendChild(content);
@@ -122,13 +152,13 @@ function loadClips() {
 }
 
 // Initialize with Match 1
-loadVideoData('Match 1');
+loadVideoData();
 
-// Single event listener for match changes
-matchSelect.addEventListener('change', () => {
-    const selectedMatchId = matchSelect.value;
-    loadVideoData(selectedMatchId);
-});
+// // Single event listener for match changes
+// matchSelect.addEventListener('change', () => {
+//     const selectedMatchId = matchSelect.value;
+//     loadVideoData(selectedMatchId);
+// });
 
 // Event listener for loading clips
 document.getElementById("loadClipsBtn").addEventListener("click", loadClips);

@@ -1,4 +1,4 @@
-// import { loadVideoData } from './videoRev_tennis.js';
+import { loadVideoData } from './videoRev_tennis.js';
 
 // Tennis match data structure
 const tennisData = {

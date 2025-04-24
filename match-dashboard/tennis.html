@@ -126,34 +126,33 @@
             </canvas>
           </figure>
 
-          <!-- VLM Video Grid -->
-          <figure class="chart-figure">
-            <figcaption>Match Highlights</figcaption>
+          <section id="videoReviewSection">
+            <h3>Video Review</h3>
             <div id="filterControls">
               <label for="eventSelect">Event:</label>
               <select id="eventSelect">
-                <option value="serve">Serve</option>
-                <option value="return">Return</option>
-                <option value="rally">Rally</option>
-                <option value="winner">Winner</option>
               </select>
-
+          
               <label for="outcomeSelect">Outcome:</label>
               <select id="outcomeSelect">
                 <option value="success">Success</option>
                 <option value="fail">Fail</option>
               </select>
-
+          
               <button id="loadClipsBtn">Load Clips</button>
             </div>
-            <div id="videoGrid"></div>
-          </figure>
+          
+            <div id="videoGrid" style="display: none;">
+            </div>
+            <div id="accordionContainer" class="accordion"></div>
+          </section>
+          
         </div>
       </div>
     </section>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="tennis.js"></script>
+  <script type="module" src="tennis.js"></script>
 </body>
 </html>

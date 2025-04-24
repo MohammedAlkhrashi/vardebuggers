@@ -82,6 +82,7 @@ function loadClips() {
 
         // Create a random minute between 1 and 90
         const randomMinute = Math.floor(Math.random() * 90) + 1;
+        // fix path reading with mins --- TODO
         
         // Create the accordion button (header)
         const button = document.createElement("button");
@@ -100,12 +101,29 @@ function loadClips() {
         clipDiv.classList.add("clip");
 
         const video = document.createElement("video");
-        video.src = `data/${clipPath}`;
+        // video.src = `data/${clipPath}`;
+        video.src = `data/${clipPath}?v=${new Date().getTime()}`;
         video.controls = true;
         video.width = 180;
 
         clipDiv.appendChild(video);
         content.appendChild(clipDiv);
+
+        // Handle video load success
+        video.addEventListener("canplay", () => {
+            console.log(`✅ Video loaded successfully: ${clipPath}`);
+            // Optionally add a class or UI indicator for success
+        });
+
+        // Handle video load failure
+        video.addEventListener("error", (e) => {
+            console.error(`❌ Failed to load video: ${clipPath}`, e);
+            video.poster = "path/to/fallback-image.jpg"; // Optional fallback
+            // Or display a message:
+            const errorMsg = document.createElement("p");
+            // errorMsg.textContent = "Video could not be loaded.";
+            clipDiv.appendChild(errorMsg);
+        });
 
         // Append the content to the accordion item
         accordionItem.appendChild(content);
