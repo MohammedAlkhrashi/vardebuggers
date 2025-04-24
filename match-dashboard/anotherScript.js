@@ -3,7 +3,8 @@ import { loadVideoData } from './videoRev.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     renderPlayers('.field');
-    let possessionChartInstance; // store chart instance globally
+    let possessionChartInstance;
+    let pressureChartInstance;
 
     // Match data for Match 1 and Match 2 (replace these with actual data)
     const matchData = {
@@ -19,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
           possession: [58, 42],
           shots: { home: 12, away: 7 },
           passAccuracy: { home: 85, away: 68 },
+          cornerKicks: { home: 5, away: 6 },
+          saves: { home: 5, away: 7 },
           yellowCards: { home: 1, away: 1 },
         },
         lastFiveGames: [{
@@ -47,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
           possession: [68.2, 31.8],
           shots: { home: 5, away: 4 },
           passAccuracy: { home: 79, away: 73 },
+          cornerKicks: { home: 6, away: 1 },
+          saves: { home: 4, away: 4 },
           yellowCards: { home: 0, away: 2 },
         },
         lastFiveGames:[
@@ -93,6 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const selectedMatch = matchSelect.value;
       updateMatchData(matchData[selectedMatch]);
       loadVideoData(selectedMatch);
+      
+      // Update pressure data when match changes
+      if (pressureChartInstance && pressureData[selectedMatch]) {
+          pressureChartInstance.data.datasets[0].data = pressureData[selectedMatch].home;
+          pressureChartInstance.data.datasets[1].data = pressureData[selectedMatch].away;
+          pressureChartInstance.update();
+      }
     });
 
     // Function to calculate the width percentage
@@ -129,11 +141,111 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     });
 
+    // Function to generate random pressure data
+    function generateRandomPressureData() {
+        // Generate realistic random pressure values between 40-90
+        const generateTeamData = () => {
+            return [
+                40 + Math.floor(Math.random() * 50), // Attack Left
+                50 + Math.floor(Math.random() * 40), // Attack Center
+                40 + Math.floor(Math.random() * 50), // Attack Right
+                45 + Math.floor(Math.random() * 45), // Defense Left
+                55 + Math.floor(Math.random() * 35), // Defense Center (usually higher)
+                45 + Math.floor(Math.random() * 45)  // Defense Right
+            ];
+        };
+
+        return {
+            'Match 1': {
+                home: generateTeamData(),
+                away: generateTeamData()
+            },
+            'Match 2': {
+                home: generateTeamData(),
+                away: generateTeamData()
+            }
+        };
+    }
+
+    // Generate initial random pressure data
+    const pressureData = generateRandomPressureData();
+
+    // Initialize pressure zone chart with random data
+    const pressureCtx = document.getElementById('pressureChart').getContext('2d');
+    pressureChartInstance = new Chart(pressureCtx, {
+        type: 'radar',
+        data: {
+            labels: ['Attack Left', 'Attack Center', 'Attack Right', 'Defense Left', 'Defense Center', 'Defense Right'],
+            datasets: [
+                {
+                    label: 'Home Team',
+                    data: pressureData['Match 1'].home,
+                    backgroundColor: 'rgba(210, 33, 36, 0.2)',
+                    borderColor: '#d22124',
+                    pointBackgroundColor: '#d22124',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#d22124'
+                },
+                {
+                    label: 'Away Team',
+                    data: pressureData['Match 1'].away,
+                    backgroundColor: 'rgba(7, 103, 205, 0.2)',
+                    borderColor: '#0767cd',
+                    pointBackgroundColor: '#0767cd',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#0767cd'
+                }
+            ]
+        },
+        options: {
+            scales: {
+                r: {
+                    angleLines: {
+                        color: 'rgba(255, 255, 255, 0.2)'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.2)'
+                    },
+                    pointLabels: {
+                        color: '#fff',
+                        font: {
+                            size: 10
+                        }
+                    },
+                    ticks: {
+                        color: '#fff',
+                        backdropColor: 'transparent',
+                        stepSize: 20,
+                        max: 100
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#fff',
+                        padding: 20
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.dataset.label}: ${context.raw}% pressure`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
     
     // Function to update stats and chart dynamically
     function updateMatchData(data) {
         if (data.name) {
-            document.getElementById('matchTitle').textContent = `Team Stats Overview: ${data.name}`;
+            document.getElementById('matchTitle').textContent = `${data.name}`;
           }
       // Update stats section
       // Assuming the data object holds the current match stats
@@ -165,6 +277,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update bar sections (Possession, Shots, etc.)
         const shotsWidth = getWidthPercentage(data.postMatchSummary.shots.home, data.postMatchSummary.shots.away);
         const passAccuracyWidth = getWidthPercentage(data.postMatchSummary.passAccuracy.home, data.postMatchSummary.passAccuracy.away);
+        const cornerKicksWidth = getWidthPercentage(data.postMatchSummary.cornerKicks.home, data.postMatchSummary.cornerKicks.away);
+        const savesWidth = getWidthPercentage(data.postMatchSummary.saves.home, data.postMatchSummary.saves.away);
         const yellowCardsWidth = getWidthPercentage(data.postMatchSummary.yellowCards.home, data.postMatchSummary.yellowCards.away);
 
         // Apply the calculated width percentages to the bars
@@ -172,16 +286,24 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.bar.away').style.width = `${shotsWidth.away}%`;
         document.querySelector('.bar.home.pass').style.width = `${passAccuracyWidth.home}%`;
         document.querySelector('.bar.away.pass').style.width = `${passAccuracyWidth.away}%`;
+        document.querySelector('.bar.home.corner').style.width = `${cornerKicksWidth.home}%`;
+        document.querySelector('.bar.away.corner').style.width = `${cornerKicksWidth.away}%`;
         document.querySelector('.bar.home.yellow').style.width = `${yellowCardsWidth.home}%`;
         document.querySelector('.bar.away.yellow').style.width = `${yellowCardsWidth.away}%`;
+        document.querySelector('.bar.home.saves').style.width = `${savesWidth.home}%`;
+        document.querySelector('.bar.away.saves').style.width = `${savesWidth.away}%`;
 
         // Optionally, update the numbers inside the bars
         document.querySelector('.bar.home').textContent = data.postMatchSummary.shots.home;
         document.querySelector('.bar.away').textContent = data.postMatchSummary.shots.away;
         document.querySelector('.bar.home.pass').textContent = `${data.postMatchSummary.passAccuracy.home}%`;
         document.querySelector('.bar.away.pass').textContent = `${data.postMatchSummary.passAccuracy.away}%`;
+        document.querySelector('.bar.home.corner').textContent = data.postMatchSummary.cornerKicks.home;
+        document.querySelector('.bar.away.corner').textContent = data.postMatchSummary.cornerKicks.away;
         document.querySelector('.bar.home.yellow').textContent = data.postMatchSummary.yellowCards.home;
         document.querySelector('.bar.away.yellow').textContent = data.postMatchSummary.yellowCards.away;
+        document.querySelector('.bar.home.saves').textContent = data.postMatchSummary.saves.home;
+        document.querySelector('.bar.away.saves').textContent = data.postMatchSummary.saves.away;
 
 
         // document.querySelector('.bar.home').style.width = `${data.postMatchSummary.shots.home}`;
@@ -203,7 +325,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // Update Possession Chart data and refresh
         possessionChartInstance.data.datasets[0].data = data.postMatchSummary.possession;
         possessionChartInstance.update();
-
     }
   
     // Initially load Match 1 data

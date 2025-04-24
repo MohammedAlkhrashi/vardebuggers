@@ -1,6 +1,12 @@
 // player view page
 let playerStatsData = {};
 
+const matchData = {
+    "Match 1": {
+      name: "2015-09-26 - Arsenal 5 - 2 Leicester"},
+    "Match 2": {
+      name: "2015-04-11 - Arsenal 1 - 0 Burnley"}};
+
 fetch('data/playerStats.json')
     .then(response => response.json())
     .then(data => {
@@ -15,6 +21,7 @@ fetch('data/playerStats.json')
 export function renderPlayers(containerSelector) {
     const field = document.querySelector(containerSelector);
     const matchSelect = document.getElementById('matchSelect');
+    document.getElementById('matchTitle2').textContent = matchData['Match 1'].name;
   
     // players
     const players = [
@@ -46,16 +53,13 @@ export function renderPlayers(containerSelector) {
 
       // Team C (right to left) match 2
       { name: 'T. Heaton', number: 1, top: '50%', left: '95%', team: 'team-c' }, // GK
-
       { name: 'K. Trippier', number: 2, top: '25%', left: '85%', team: 'team-c' },  // DEF
       { name: 'M. Duff', number: 4, top: '40%', left: '85%', team: 'team-c' },
       { name: 'J. Shackell', number: 5, top: '60%', left: '85%', team: 'team-c' },
       { name: 'B. Mee', number: 6, top: '75%', left: '85%', team: 'team-c' },
-
       { name: 'S. Arfield', number: 37, top: '30%', left: '70%', team: 'team-c' },   // MID
       { name: 'D. Jones', number: 14, top: '50%', left: '70%', team: 'team-c' },
       { name: 'G. Boyd', number: 21, top: '70%', left: '70%', team: 'team-c' },
-
       { name: 'A. Barnes', number: 30, top: '30%', left: '55%', team: 'team-c' },
       { name: 'D. Ings', number: 10, top: '70%', left: '55%', team: 'team-c' },      // FW
       { name: 'S. Vokes', number: 9, top: '50%', left: '55%', team: 'team-c' }
@@ -63,6 +67,8 @@ export function renderPlayers(containerSelector) {
   
   // Renders players for selected match
   function renderMatchPlayers(selectedMatch) {
+    const panel = document.querySelector('.stats-container');
+    panel.style.display = 'none'; // hide entire panel
     // Clear current field
     field.innerHTML = '';
 
@@ -96,7 +102,7 @@ export function renderPlayers(containerSelector) {
             }
           });
 
-          div.style.backgroundColor = '#fff733';
+          div.style.backgroundColor = '#a39f2f';
           showPlayerStats(player);
         });
 
@@ -112,6 +118,9 @@ export function renderPlayers(containerSelector) {
     renderMatchPlayers(matchSelect.value);
     const panel = document.querySelector('.stats-container');
     panel.style.display = 'none'; // hide entire panel
+    
+    const selectedMatch = matchSelect.value; // assuming the select values are "Match 1", "Match 2", etc.
+    document.getElementById('matchTitle2').textContent = matchData[selectedMatch].name;
   });
   }
 
@@ -143,34 +152,111 @@ export function showPlayerStats(playerId) {
 // Build the stats HTML with improved structure
 playerStatsPanel.innerHTML = `
     <div class="player-stats-container">
-        <h3 class="player-name">${playerStats.short_name} <span class="jersey-number">(#${playerStats.club_jersey_number})</span></h3>
-        <div class="stats-list">
-            <div class="stat-item">
-                <span class="stat-label">Position:</span> <span class="stat-value">${playerStats.player_positions}</span>
+        <!-- Player Header -->
+        <div class="player-header">
+            <div class="player-avatar">
+                <img src="${playerStats.player_face_url}" alt="${playerStats.short_name}" class="player-image">
             </div>
-            <div class="stat-item">
-                <span class="stat-label">Preferred Foot:</span> <span class="stat-value">${playerStats.preferred_foot}</span>
+            <div class="player-info">
+                <h3 class="player-name">${playerStats.short_name}</h3>
+                <div class="player-position">${playerStats.player_positions}</div>
+                <div class="jersey-number"># ${playerStats.club_jersey_number}</div>
             </div>
-            <div class="stat-item">
-                <span class="stat-label">Overall:</span> <span class="stat-value overall">${playerStats.overall}</span>
+        </div>
+
+        <!-- Key Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Overall Rating</div>
+                <div class="stat-value">${playerStats.overall}</div>
+                <div class="stat-progress">
+                    <div class="stat-progress-bar" style="width: ${playerStats.overall}%"></div>
+                </div>
             </div>
-            <div class="stat-item">
-                <span class="stat-label">Skill Moves:</span> <span class="stat-value">${playerStats.skill_moves}</span>
+            ${playerStats.player_positions.includes('GK') ? `
+                <div class="stat-card">
+                    <div class="stat-label">GK Diving</div>
+                    <div class="stat-value">${playerStats.goalkeeping_diving}</div>
+                    <div class="stat-progress">
+                        <div class="stat-progress-bar" style="width: ${playerStats.goalkeeping_diving}%"></div>
+                    </div>
+                </div>
+            ` : `
+                <div class="stat-card">
+                    <div class="stat-label">Finishing</div>
+                    <div class="stat-value">${playerStats.attacking_finishing}</div>
+                    <div class="stat-progress">
+                        <div class="stat-progress-bar" style="width: ${playerStats.attacking_finishing}%"></div>
+                    </div>
+                </div>
+            `}
+            ${playerStats.player_positions.includes('GK') ? `
+              <div class="stat-card">
+                  <div class="stat-label">GK Handling</div>
+                  <div class="stat-value">${playerStats.goalkeeping_handling}</div>
+                  <div class="stat-progress">
+                      <div class="stat-progress-bar" style="width: ${playerStats.goalkeeping_handling}%"></div>
+                  </div>
+              </div>
+          ` : `
+              <div class="stat-card">
+                <div class="stat-label">Passing</div>
+                <div class="stat-value">${playerStats.passing || 'N/A'}</div>
+                <div class="stat-progress">
+                    <div class="stat-progress-bar" style="width: ${playerStats.passing || 0}%"></div>
+                </div>
+              </div>
+          `}
+          ${playerStats.player_positions.includes('GK') ? `
+            <div class="stat-card">
+                <div class="stat-label">GK Kicking</div>
+                <div class="stat-value">${playerStats.goalkeeping_kicking}</div>
+                <div class="stat-progress">
+                    <div class="stat-progress-bar" style="width: ${playerStats.goalkeeping_kicking}%"></div>
+                </div>
             </div>
-            <div class="stat-item">
-                <span class="stat-label">Finishing:</span> <span class="stat-value">${playerStats.attacking_finishing}</span>
+        ` : `
+            <div class="stat-card">
+                <div class="stat-label">Defending</div>
+                <div class="stat-value">${playerStats.defending || 'N/A'}</div>
+                <div class="stat-progress">
+                    <div class="stat-progress-bar" style="width: ${playerStats.defending || 0}%"></div>
+                </div>
             </div>
-            <div class="stat-item">
-                <span class="stat-label">Passing:</span> <span class="stat-value">${playerStats.passing || 'N/A'}</span>
+        `}
+        </div>
+
+        <!-- Additional Info -->
+        <div class="match-performance">
+            <h4 class="performance-header">Player Details</h4>
+            <div class="performance-grid">
+                <div class="performance-stat">
+                    <div class="performance-value">${playerStats.age}</div>
+                    <div class="performance-label">Age</div>
+                </div>
+                <div class="performance-stat">
+                    <div class="performance-value">${playerStats.preferred_foot}</div>
+                    <div class="performance-label">Preferred Foot</div>
+                </div>
+                ${playerStats.player_positions.includes('GK') ? `
+                    <div class="performance-stat">
+                        <div class="performance-value">${playerStats.power_stamina || 'N/A'}</div>
+                        <div class="performance-label">Stamina</div>
+                    </div>
+                ` : `
+                    <div class="performance-stat">
+                        <div class="performance-value">${playerStats.pace || 'N/A'}</div>
+                        <div class="performance-label">Pace</div>
+                    </div>
+                `}
             </div>
-            <div class="stat-item">
-                <span class="stat-label">Defending:</span> <span class="stat-value">${playerStats.defending || 'N/A'}</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Goalkeeping Diving:</span> <span class="stat-value">${playerStats.goalkeeping_diving}</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Traits:</span> <span class="stat-value">${playerStats.player_traits}</span>
+        </div>
+
+        <!-- Traits Section -->
+        <div class="traits-section">
+            <h4 class="traits-header">Player Traits</h4>
+            <div class="traits-content">
+                ${playerStats.player_traits || 'Player Traits Not Available'}
             </div>
         </div>
     </div>

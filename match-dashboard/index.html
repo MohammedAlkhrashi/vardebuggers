@@ -2,28 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Match Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Football Dashboard - Real-time sports analytics and statistics">
+  <title>Football Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
+    <header role="banner">
         <div class="header-left">
           <img src="assets/logo.png" alt="Club Logo" class="club-logo" />
-          <h1>Match Dashboard</h1>
+          <h1>Football Dashboard</h1>
         </div>
       
         <div class="controls">
-          <select id="matchSelect" class="styled-select">
+          <select id="matchSelect" class="styled-select" aria-label="Select match">
             <option value="Match 1">Match 1</option>
             <option value="Match 2">Match 2</option>
           </select>
       
-          <div class="tabs">
-            <button class="tab active" data-view="teamView">Team View</button>
-            <button class="tab" data-view="playerView">Player View</button>
+          <div class="tabs" role="tablist">
+            <button class="tab active" data-view="teamView" role="tab" aria-selected="true" aria-controls="teamView">Team View</button>
+            <button class="tab" data-view="playerView" role="tab" aria-selected="false" aria-controls="playerView">Player View</button>
+            <!-- <a href="tennis.html" class="tab tennis-tab" role="tab">Tennis</a> -->
           </div>
+
+          <a href="tennis.html" class="tab tennis-tab" role="tab">Tennis</a>
+
+          <a href="https://github.com/MohammedAlkhrashi/vardebuggers" class="github-link" target="_blank" rel="noopener noreferrer">
+            <svg height="30" width="24" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+            </svg>
+            <span>GitHub</span>
+          </a>
         </div>
-      </header>
+    </header>
       
   <main>
     <!-- View 1: Team Dashboard -->
@@ -37,77 +52,134 @@
         <div class="stats-column">
             <h3>Key Metrics</h3>
             <ul class="stat-list">
-              <li><span>Goals</span>
-                <span class="stat-value goal">
-                    <small>(Avg: 2.5)</small> <span class="arrow">▲</span>
-                </span>
-              </li>
-              <li><span>Shots on Goal</span>
-                  <span class="stat-value shots">
-                      <small>(Avg: 8.2)</small> <span class="arrow">▲</span>
-                  </span>
-              </li>
-              <li><span>Fouls</span>
-                  <span class="stat-value fouls">
-                      <small>(Avg: 15.1)</small> <span class="arrow">▼</span>
-                  </span>
-              </li>
-              <li><span>Pass Accuracy</span>
-                  <span class="stat-value pass">
-                      <small>(Avg: 79%)</small> <span class="arrow">▲</span>
-                  </span>
-              </li>
+                <li>
+                    <span>Goals</span>
+                    <span class="stat-value goal">
+                        3 <small>(Avg: 2.5)</small> <span class="arrow up">▲</span>
+                    </span>
+                </li>
+                <li>
+                    <span>Shots on Goal</span>
+                    <span class="stat-value shots">
+                        12 <small>(Avg: 8.2)</small> <span class="arrow up">▲</span>
+                    </span>
+                </li>
+                <li>
+                    <span>Fouls</span>
+                    <span class="stat-value fouls">
+                        8 <small>(Avg: 15.1)</small> <span class="arrow down">▼</span>
+                    </span>
+                </li>
+                <li>
+                    <span>Pass Accuracy</span>
+                    <span class="stat-value pass">
+                        85% <small>(Avg: 79%)</small> <span class="arrow up">▲</span>
+                    </span>
+                </li>
             </ul>
 
             <!-- Match summary section -->
             <h3>Post-Match Summary</h3>
             <div class="fifa-summary">
-              <div class="summary-card">
-              </div>
-              <div class="summary-card">
-                <h4>Shots</h4>
-                <div class="bar-container">
-                  <div class="bar home" style="width: 63%">12</div>
-                  <div class="bar away" style="width: 37%">7</div>
+                <div class="summary-card">
+                    <h4>Possession</h4>
+                    <div class="bar-container">
+                        <div class="bar home" style="width: 55%">55%</div>
+                        <div class="bar away" style="width: 45%">45%</div>
+                    </div>
                 </div>
-              </div>
-              <div class="summary-card">
-                <h4>Pass Accuracy</h4>
-                <div class="bar-container">
-                  <div class="bar home pass" style="width: 85%">85%</div>
-                  <div class="bar away pass" style="width: 68%">68%</div>
+                <div class="summary-card">
+                    <h4>Shots on Goal</h4>
+                    <div class="bar-container">
+                        <div class="bar home" style="width: 63%">12</div>
+                        <div class="bar away" style="width: 37%">7</div>
+                    </div>
                 </div>
-              </div>
-              <div class="summary-card">
-                <h4>Yellow Cards</h4>
-                <div class="bar-container">
-                  <div class="bar home yellow" style="width: 50%">1</div>
-                  <div class="bar away yellow" style="width: 50%">1</div>
+                <div class="summary-card">
+                    <h4>Pass Accuracy</h4>
+                    <div class="bar-container">
+                        <div class="bar home pass" style="width: 85%">85%</div>
+                        <div class="bar away pass" style="width: 68%">68%</div>
+                    </div>
                 </div>
+                <div class="summary-card">
+                    <h4>Corner Kicks</h4>
+                    <div class="bar-container">
+                        <div class="bar home corner" style="width: 50%">5</div>
+                        <div class="bar away corner" style="width: 50%">6</div>
+                    </div>
+                </div>
+                <div class="summary-card">
+                  <h4>Saves</h4>
+                  <div class="bar-container">
+                      <div class="bar home saves" style="width: 50%">5</div>
+                      <div class="bar away saves" style="width: 50%">6</div>
+                  </div>
+              </div>
+                <div class="summary-card">
+                  <h4>Yellow Cards</h4>
+                  <div class="bar-container">
+                      <div class="bar home yellow" style="width: 50%">1</div>
+                      <div class="bar away yellow" style="width: 50%">1</div>
+                  </div>
               </div>
             </div>
+            <h3>Last Five Games</h3>
+            <table class="match-history">
+                <thead>
+                    <tr>
+                        <th>Result</th>
+                        <th>Match</th>
+                        <th>Date</th>
+                        <th>Competition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="win">W</td>
+                        <td>vs Liverpool</td>
+                        <td>Mar 15</td>
+                        <td>Premier League</td>
+                    </tr>
+                    <tr>
+                        <td class="draw">D</td>
+                        <td>vs Chelsea</td>
+                        <td>Mar 12</td>
+                        <td>Premier League</td>
+                    </tr>
+                    <tr>
+                        <td class="win">W</td>
+                        <td>vs Porto</td>
+                        <td>Mar 9</td>
+                        <td>Champions League</td>
+                    </tr>
+                    <tr>
+                        <td class="loss">L</td>
+                        <td>vs Man City</td>
+                        <td>Mar 5</td>
+                        <td>Premier League</td>
+                    </tr>
+                    <tr>
+                        <td class="win">W</td>
+                        <td>vs Brighton</td>
+                        <td>Mar 1</td>
+                        <td>Premier League</td>
+                    </tr>
+                </tbody>
+            </table>
          </div>
     
         <!-- Right: Charts -->
         <div class="chart-section">
+          <h3>Charts</h3>
             <figure class="chart-figure">
-              <figcaption>Possession</figcaption>
-              <canvas id="possessionChart"></canvas>
+                <figcaption>Match Possession</figcaption>
+                <canvas id="possessionChart"></canvas>
             </figure>
-            <h3>Last Five Games</h3>
-            <table class="match-history">
-              <thead>
-                <tr>
-                  <th>Result</th>
-                  <th>Match</th>
-                  <th>Date</th>
-                  <th>Competition</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Data will be dynamically populated here -->
-              </tbody>
-            </table>
+            <figure class="chart-figure">
+                <figcaption>Team Pressure Zones</figcaption>
+                <canvas id="pressureChart"></canvas>
+            </figure>
         </div>
         </div>
     </section>
@@ -116,43 +188,69 @@
 
     <!-- View 2: Player Dashboard -->
     <section id="playerView" class="view hidden">
+      <h2 id="matchTitle2"></h2>
       <h2>Player Insights</h2>
 
       <div class="container">
-        <div class="field-container">
-          <div id="field" class="field"></div>
+        <div class="field-and-video">
+          <div class="field-container">
+            <div id="field" class="field">
+              <!-- Center spot -->
+              <div class="center-spot"></div>
+              
+              <!-- Penalty areas -->
+              <div class="penalty-area-left"></div>
+              <div class="penalty-area-right"></div>
+              
+              <!-- Goal areas -->
+              <div class="goal-area-left"></div>
+              <div class="goal-area-right"></div>
+              
+              <!-- Penalty spots -->
+              <div class="penalty-spot-left"></div>
+              <div class="penalty-spot-right"></div>
+              
+              <!-- Corner arcs -->
+              <div class="corner-arc corner-arc-top-left"></div>
+              <div class="corner-arc corner-arc-top-right"></div>
+              <div class="corner-arc corner-arc-bottom-left"></div>
+              <div class="corner-arc corner-arc-bottom-right"></div>
+              
+              <!-- Goals -->
+              <div class="goal-left"></div>
+              <div class="goal-right"></div>
+            </div>
+          </div>
+          
+          <section id="videoReviewSection">
+            <h3>Video Review</h3>
+            <div id="filterControls">
+              <label for="eventSelect">Event:</label>
+              <select id="eventSelect">
+              </select>
+          
+              <label for="outcomeSelect">Outcome:</label>
+              <select id="outcomeSelect">
+                <option value="success">Success</option>
+                <option value="fail">Fail</option>
+              </select>
+          
+              <button id="loadClipsBtn">Load Clips</button>
+            </div>
+          
+            <div id="videoGrid" style="display: none;">
+            </div>
+            <div id="accordionContainer" class="accordion"></div>
+          </section>
         </div>
         
         <div class="stats-container">
-          <div id="playerStatsPanel"></div>
+          <div id="playerStatsPanel">
+            <!-- Player stats will be dynamically inserted here by JavaScript -->
+          </div>
         </div>
       </div>
-      
-      <section id="videoReviewSection">
-        <h3>Video Review</h3>
-      
-        <div id="filterControls">
-          <label for="eventSelect">Event:</label>
-          <select id="eventSelect">
-            <!-- <option value="">Pass</option> -->
-          </select>
-      
-          <label for="outcomeSelect">Outcome:</label>
-          <select id="outcomeSelect">
-            <!-- <option value="">-- Select Outcome --</option> -->
-            <option value="success">Success</option>
-            <option value="fail">Fail</option>
-          </select>
-      
-          <button id="loadClipsBtn">Load Clips</button>
-        </div>
-      
-      <div id="videoGrid" style="display: none;">
-      </div>
-      <div id="accordionContainer" class="accordion"></div>
-    </div>
-      </section>
-      
+    </section>
       
     <!-- View 2 END ############# -->
   </main>
